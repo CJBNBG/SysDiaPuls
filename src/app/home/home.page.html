@@ -1,0 +1,52 @@
+<!-- Kopfzeilenbereich -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-title size="small">Gesundheitsdaten</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Hauptbereich der Seite -->
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-card>
+          <ion-card-header>
+            <img src="assets/img/stethoscope.jpg" (click)="AnzeigeTabelle()" />
+            <div  style="text-align-last: right;">
+              <ion-card-subtitle>
+                Quelle: <a href="https://pixabay.com/de/photos/stethoskop-arzt-medizin-medizinisch-1584222/" target="_blank" rel="noopener">hier klicken</a>
+              </ion-card-subtitle>
+            </div>
+            <ion-card-title>Gesundheitsdaten</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Mit dieser App können Sie Ihre eigenen Gesundheitsdaten erfassen:
+            <br /><br /><h1>Blutdruck und Puls</h1>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!-- Fußzeilenbereich -->
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeUmschalten('Tabelle')">
+        <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeUmschalten('Diagramm')">
+        <ion-icon slot="icon-only" name="trending-up-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeUmschalten('Einstellung')">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
