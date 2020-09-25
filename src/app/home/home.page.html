@@ -15,7 +15,7 @@
             <img src="assets/img/stethoscope.jpg" (click)="AnzeigeTabelle()" />
             <div  style="text-align-last: right;">
               <ion-card-subtitle>
-                Quelle: <a href="https://pixabay.com/de/photos/stethoskop-arzt-medizin-medizinisch-1584222/" target="_blank" rel="noopener">hier klicken</a>
+                <font size="1">Quelle: <a href="https://pixabay.com/de/photos/stethoskop-arzt-medizin-medizinisch-1584222/" target="_blank" rel="noopener">hier klicken</a></font>
               </ion-card-subtitle>
             </div>
             <ion-card-title>Gesundheitsdaten</ion-card-title>
@@ -33,6 +33,7 @@
 <!-- Fußzeilenbereich -->
 <ion-footer class="ion-no-border">
   <ion-toolbar color="secondary">
+    <ion-textarea rows="1" maxlength="20" disabled readonly id="txtAppVersion" value='App-Version'></ion-textarea>
     <ion-buttons slot="end">
       <ion-button (click)="AnzeigeUmschalten('Tabelle')">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>

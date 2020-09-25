@@ -1,5 +1,7 @@
 {
   "name": "SysDiaPuls",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
