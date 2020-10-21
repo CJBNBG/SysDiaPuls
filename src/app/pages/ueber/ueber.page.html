@@ -1,0 +1,30 @@
+<!-- Kopfzeilenbereich -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Über diese App</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeEinstellungen()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Hauptbereich der Seite -->
+<ion-content class="ion-padding">
+  <h2>Diese App wurde von<br />Claus J. Bauer<br />erstellt.</h2>
+  <ion-textarea rows="5" maxlength="20" readonly id="txtAppVersion" value='App-Version'></ion-textarea>
+</ion-content>
+
+<!-- Fußzeilenbereich -->
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="secondary">
+  </ion-toolbar>
+</ion-footer>
