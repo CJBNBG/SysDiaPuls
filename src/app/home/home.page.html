@@ -1,7 +1,17 @@
 <!-- Kopfzeilenbereich -->
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
-    <ion-title size="small">Gesundheitsdaten</ion-title>
+    <ion-title>
+      <font size="3">Gesundheitsdaten</font>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeEinstellungen()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -18,11 +28,12 @@
                 <font size="1">Quelle: <a href="https://pixabay.com/de/photos/stethoskop-arzt-medizin-medizinisch-1584222/" target="_blank" rel="noopener">hier klicken</a></font>
               </ion-card-subtitle>
             </div>
-            <ion-card-title>Gesundheitsdaten</ion-card-title>
+            <br />
+            <ion-card-title mode="md">Gesundheitsdaten</ion-card-title>     <!-- mode="md" stellt sicher, dass das Wort auf beiden Plattformen lesbar ist -->
           </ion-card-header>
           <ion-card-content>
-            Mit dieser App können Sie Ihre eigenen Gesundheitsdaten erfassen:
-            <br /><br /><h1>Blutdruck und Puls</h1>
+            Mit dieser App können Sie folgende Gesundheitsdaten erfassen:
+            <br /><br /><h2>Blutdruck und Puls</h2>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -33,7 +44,6 @@
 <!-- Fußzeilenbereich -->
 <ion-footer class="ion-no-border">
   <ion-toolbar color="secondary">
-    <ion-textarea rows="1" maxlength="20" disabled readonly id="txtAppVersion" value='App-Version'></ion-textarea>
     <ion-buttons slot="end">
       <ion-button (click)="AnzeigeUmschalten('Tabelle')">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
@@ -42,11 +52,6 @@
     <ion-buttons slot="end">
       <ion-button (click)="AnzeigeUmschalten('Diagramm')">
         <ion-icon slot="icon-only" name="trending-up-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="AnzeigeUmschalten('Einstellung')">
-        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
