@@ -2,13 +2,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-button (click)="goHome()">
+      <ion-back-button>
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
+      </ion-back-button>
     </ion-buttons>
 
-    <ion-title>Über diese App</ion-title>
+    <ion-title>&Uuml;ber diese App</ion-title>
 
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="AnzeigeEinstellungen()">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
@@ -18,9 +23,28 @@
 </ion-header>
 
 <!-- Hauptbereich der Seite -->
-<ion-content class="ion-padding">
-  <h2>Diese App wurde von<br />Claus J. Bauer<br />erstellt.</h2>
-  <ion-textarea rows="5" maxlength="20" readonly id="txtAppVersion" value='App-Version'></ion-textarea>
+<ion-content class="fullscreen">
+  <ion-grid>
+    <ion-row>
+      <ion-col  size-md="8" offset-md=2>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Autor:</ion-card-subtitle>
+            <ion-card-title>Claus J. Bauer</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Kontakt: <a href='mailto:claus@clausjbauer.de'>Email an den Autor</a>
+            <br />
+            erstellt: 12.01.2021 20:55
+            <br />
+            <br />
+            <ion-button (click)="AnzeigeDetails()">weitere Details anzeigen</ion-button>
+            <ion-textarea rows="0" maxlength="20" readonly id="txtAppVersion" value=''></ion-textarea>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <!-- Fußzeilenbereich -->

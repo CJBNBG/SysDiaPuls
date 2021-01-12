@@ -1,0 +1,111 @@
+<!-- Kopfzeilenbereich -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Tabelle</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeNeu()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goInfo()">
+        <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeEinstellungen()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<!-- Hauptbereich der Seite -->
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-list>
+            <ion-item lines="full" mode="md" *ngFor="let record of records;index as slNo">
+
+              <table class="myTableGroup">
+                <thead>
+                  <tr>
+                    <th class="row-1 row-Zeitpunkt"></th>
+                    <th class="row-2 row-Werte"></th>
+                    <th class="row-3 row-Button"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (click)="AnzeigeDetails(record)">
+                    <!-- erste Spalte row-Zeitpunkt -->
+                    <td>
+                      <ion-text [ngClass]="myZeitpunktFormat(record)">
+                        <div class="ion-text-center">{{record.dt_formatiert}}</div>
+                      </ion-text>
+                    </td>
+                    <!-- zweite Spalte row-Werte -->
+                    <td>
+                      <ion-grid>
+                        <ion-row (click)="AnzeigeDetails(record)" class="ion-align-items-center">
+                          <!-- <ion-col>{{slNo+1}}</ion-col> -->
+                          <ion-col size-md="3" [ngClass]="mySystoleFormat(record)">{{record.Systole}}
+                          </ion-col>
+                          <ion-col size-md="3" [ngClass]="myDiastoleFormat(record)">{{record.Diastole}}
+                          </ion-col>
+                          <ion-col size-md="3" [ngClass]="myPulsFormat(record)">{{record.Puls}}
+                          </ion-col>
+                          <ion-col size-md="3" [ngClass]="myGewichtFormat(record)">{{record.Gewicht}}
+                          </ion-col>
+                        </ion-row>
+                        <ion-row (click)="AnzeigeDetails(record)">
+                          <ion-col [ngClass]="myBemerkungFormat(record)">{{record.Bemerkung}} (ID={{record.pid}})
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </td>     
+                    <!-- dritte Spalte row-Button -->
+                    <td>
+                      <ion-button>
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </ion-button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add" (click)="AnzeigeNeu()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<!-- Fußzeilenbereich -->
+<ion-footer class="ion-no-border">
+  <ion-toolbar style="font-size: medium;" color="secondary">
+    <ion-textarea slot="start" readonly id="txtAnzDSe"></ion-textarea>
+  </ion-toolbar>
+</ion-footer>

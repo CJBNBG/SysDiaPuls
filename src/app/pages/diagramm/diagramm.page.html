@@ -2,24 +2,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-back-button>
+      <ion-button (click)="goHome()">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-back-button>
+      </ion-button>
     </ion-buttons>
 
-    <ion-title>Einstellungen</ion-title>
+    <ion-title>Diagramm</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="goHome()">
-        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      <ion-button (click)="AnzeigeEinstellungen()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- Hauptbereich der Seite -->
-<ion-content  [fullscreen]="true" class="ion-padding">
-  <h1>diese Seite zeigt die Einstellungen</h1>
+<ion-content class="ion-padding">
 </ion-content>
 
 <!-- Fußzeilenbereich -->

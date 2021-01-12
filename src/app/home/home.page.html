@@ -8,10 +8,15 @@
       <ion-menu-button autoHide="true"></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
+      <ion-button (click)="goInfo()">
+        <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
       <ion-button (click)="AnzeigeEinstellungen()">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +27,7 @@
       <ion-col size-md="6" offset-md="3">
         <ion-card>
           <ion-card-header>
-            <img src="assets/img/stethoscope.jpg" (click)="AnzeigeTabelle()" />
+            <img src="assets/img/stethoscope.jpg" (click)="presentAlertConfirm()" />
             <div  style="text-align-last: right;">
               <ion-card-subtitle>
                 <font size="1">Quelle: <a href="https://pixabay.com/de/photos/stethoskop-arzt-medizin-medizinisch-1584222/" target="_blank" rel="noopener">hier klicken</a></font>
@@ -33,7 +38,7 @@
           </ion-card-header>
           <ion-card-content>
             Mit dieser App können Sie folgende Gesundheitsdaten erfassen:
-            <br /><br /><h2>Blutdruck und Puls</h2>
+            <br /><br /><h2>Blutdruck (Systole und Diastole)<br />Puls<br />Gewicht</h2>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -44,15 +49,16 @@
 <!-- Fußzeilenbereich -->
 <ion-footer class="ion-no-border">
   <ion-toolbar color="secondary">
+    <ion-textarea slot="start" readonly id="txtStatus" value=""></ion-textarea>
     <ion-buttons slot="end">
-      <ion-button (click)="AnzeigeUmschalten('Tabelle')">
+      <ion-button (click)="AnzeigeTabelle()">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="AnzeigeUmschalten('Diagramm')">
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeDiagramm()">
         <ion-icon slot="icon-only" name="trending-up-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-footer>

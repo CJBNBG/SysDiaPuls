@@ -1,0 +1,204 @@
+<!-- Kopfzeilenbereich -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Details</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goInfo()">
+        <ion-icon slot="icon-only" name="information-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeEinstellungen()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<!-- Hauptbereich der Seite -->
+<ion-content padding class="form-content">
+  <form [formGroup]="detailform" (ngSubmit)="onSubmit(detailform.value)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card style="margin: 0pt; width: 100%;" *ngFor="let itm of thisRecord;index as slNo">
+            <ion-card-header>
+              <ion-card-title>
+                <div style="text-align-last: right;">Eintrag mit ID: {{itm.pid}}</div>
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content mode="md">
+              <ion-list lines="full">
+                <!-- Zeitpunkt -->
+                <ion-item style ="width: 100%;">
+                  <ion-text [ngClass]="myZeitpunktFormat(thisRecord)" style="text-align: left;">Zeitpunkt:</ion-text>
+                  <ion-datetime [ngClass]="myZeitpunktFormat(thisRecord)" style="text-align: right;background-color: #c6ebfc;" displayFormat="DD.MM.YYYY HH:mm" formControlName="ctlZeitpunkt" min="2000-01-01T00:00:00" max="2100-12-31T23:59:59" cancel-text="Abbrechen" done-text="&Uuml;bernehmen" required></ion-datetime>
+                </ion-item>
+                <div *ngIf="detailform.get('ctlZeitpunkt').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+
+                <!-- Systole -->
+                <ion-item lines="none" style="width: 100%;">
+                  <table class="myDetailGroup">
+                    <thead>
+                      <tr>
+                        <th class="row-1 row-Bezeichnung"></th>
+                        <th class="row-2 row-Minus"></th>
+                        <th class="row-3 row-Wert"></th>
+                        <th class="row-4 row-Plus"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Systole: (mmHg)</ion-text>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="SystolePlusMinus('-')">-</ion-button>
+                        </td>                          
+                        <td>
+                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" id="fcSystole" formControlName="ctlSystole" readonly required></ion-input>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="SystolePlusMinus('+')">+</ion-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="detailform.get('ctlSystole').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+                </ion-item>
+
+                <!-- Diastole -->
+                <ion-item lines="none" style="width: 100%;">
+                  <table class="myDetailGroup">
+                    <thead>
+                      <tr>
+                        <th class="row-1 row-Bezeichnung"></th>
+                        <th class="row-2 row-Minus"></th>
+                        <th class="row-3 row-Wert"></th>
+                        <th class="row-4 row-Plus"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Diastole: (mmHg)</ion-text>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="DiastolePlusMinus('-')">-</ion-button>
+                        </td>                          
+                        <td>
+                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" formControlName="ctlDiastole" readonly required></ion-input>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="DiastolePlusMinus('+')">+</ion-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="detailform.get('ctlDiastole').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+                </ion-item>
+
+                <!-- Puls -->
+                <ion-item lines="none" style="width: 100%;">
+                  <table class="myDetailGroup">
+                    <thead>
+                      <tr>
+                        <th class="row-1 row-Bezeichnung"></th>
+                        <th class="row-2 row-Minus"></th>
+                        <th class="row-3 row-Wert"></th>
+                        <th class="row-4 row-Plus"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Puls: (Schl./Min.)</ion-text>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="PulsPlusMinus('-')">-</ion-button>
+                        </td>                          
+                        <td>
+                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" formControlName="ctlPuls" readonly required></ion-input>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="PulsPlusMinus('+')">+</ion-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="detailform.get('ctlPuls').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+                </ion-item>
+
+                <!-- Gewicht -->
+                <ion-item lines="none" style="width: 100%;">
+                  <table class="myDetailGroup">
+                    <thead>
+                      <tr>
+                        <th class="row-1 row-Bezeichnung"></th>
+                        <th class="row-2 row-Minus"></th>
+                        <th class="row-3 row-Wert"></th>
+                        <th class="row-4 row-Plus"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Gewicht: (kg)</ion-text>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="GewichtPlusMinus('-')">-</ion-button>
+                        </td>                          
+                        <td>
+                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" formControlName="ctlGewicht" readonly required></ion-input>
+                        </td>
+                        <td style="background-color:#c6ebfc;" >
+                          <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="GewichtPlusMinus('+')">+</ion-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="detailform.get('ctlGewicht').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+                </ion-item>
+
+                <!-- Bemerkung -->
+                <ion-item lines="none" style="width: 100%; border: 0px; margin: 0px;">
+                  <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Bemerkung:</ion-text>
+                </ion-item>
+                <ion-item style="width: 100%; border: 0px; margin: 0px;">
+                  <ion-textarea [ngClass]="myBemerkungFormat(thisRecord)" style="background-color: #c6ebfc;;" rows="3" mode="md" formControlName="ctlBemerkung" type="text" required>
+                  </ion-textarea>
+                  <div *ngIf="detailform.get('ctlBemerkung').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+                </ion-item>
+
+              </ion-list>
+              <ion-button style="margin: 0;" color="secondary" class="submit-btn" expand="block" type="submit" [disabled]="!detailform.valid">
+                <ion-icon name="checkmark"></ion-icon>
+                &Auml;nderungen &Uuml;bernehmen
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+<!-- Fußzeilenbereich -->
+<!-- <ion-footer class="ion-no-border">
+  <ion-toolbar color="secondary">
+    <ion-textarea slot="start" readonly id="txtStatus" value=""></ion-textarea>
+  </ion-toolbar>
+</ion-footer> -->

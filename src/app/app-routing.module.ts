@@ -11,15 +11,26 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: 'einstellungen',
-    loadChildren: () => import('./pages/einstellungen/einstellungen.module').then( m => m.EinstellungenPageModule)
-  },
+  // {
+  //   path: 'einstellungen',
+  //   loadChildren: () => import('./pages/einstellungen/einstellungen.module').then( m => m.EinstellungenPageModule)
+  // },
   {
     path: 'ueber',
     loadChildren: () => import('./pages/ueber/ueber.module').then( m => m.UeberPageModule)
   },
-
+  {
+    path: 'tabelle',
+    loadChildren: () => import('./pages/tabelle/tabelle.module').then( m => m.TabellePageModule)
+  },
+  // {
+  //   path: 'diagramm',
+  //   loadChildren: () => import('./pages/diagramm/diagramm.module').then( m => m.DiagrammPageModule)
+  // },
+  {
+    path: 'detail',
+    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
+  }
 ];
 
 @NgModule({

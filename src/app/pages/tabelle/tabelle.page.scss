@@ -1,0 +1,443 @@
+ion-grid {
+    margin: 0;
+    border: 0;
+}
+ion-item {
+    margin: 0;
+    border: 0;
+}
+.myTableGroup {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+.my-alert-class {
+   background-color: lightcoral;
+}
+.row-Zeitpunkt {
+    width: 25%;
+    margin: 0pt;
+    border: 0pt;
+    vertical-align: middle;
+    text-align: center;
+    text-align-last: center;
+}
+.row-Werte {
+    width: 60%;
+    margin: 0pt;
+    vertical-align: middle;
+    text-align-last: center;
+}
+.row-Button {
+    width: 15%;
+    font-size: medium;
+    margin: 0pt;
+    vertical-align: middle;
+}
+.smaller {
+    font-size: smaller;
+}
+.small {
+    font-size: small;
+}
+.medium {
+    font-size: medium;
+}
+.large {
+    font-size: large;
+}
+.larger {
+    font-size: larger;
+}
+.optimal {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: green;
+    text-align-last: center;
+}
+.normal {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color:  rgb(155, 255, 155);
+    text-align-last: center;
+}
+.hochnormal {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color:  rgb(221, 224, 70);
+    text-align-last: center;
+}
+.stufe1 {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color:  rgb(248, 134, 72);
+    text-align-last: center;
+}
+.stufe2 {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color:  rgb(255, 68, 68);
+    text-align-last: center;
+}
+.stufe3 {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: red;
+    text-align-last: center;
+}
+.puls_normal {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: green;
+    text-align-last: center;
+}
+.puls_langsam {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: aqua;
+    text-align-last: center;
+}
+.puls_schnell {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: lightcoral;
+    text-align-last: center;
+}
+.gew_normal {
+    border-style: solid;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-color: lightgreen;
+    text-align-last: center;
+}
+
+
+.row-Zeitpunkt_smaller {
+    @extend .row-Zeitpunkt;
+    @extend .smaller;
+}
+.row-Zeitpunkt_small {
+    @extend .row-Zeitpunkt;
+    @extend .small;
+}
+.row-Zeitpunkt_medium {
+    @extend .row-Zeitpunkt;
+    @extend .medium;
+}
+.row-Zeitpunkt_large {
+    @extend .row-Zeitpunkt;
+    @extend .large;
+}
+.row-Zeitpunkt_larger {
+    @extend .row-Zeitpunkt;
+    @extend .larger;
+}
+
+
+.row-Werte_optimal_smaller {
+    @extend .row-Werte;
+    @extend .optimal;
+    @extend .smaller;
+}
+.row-Werte_optimal_small {
+    @extend .row-Werte;
+    @extend .optimal;
+    @extend .small;
+}
+.row-Werte_optimal_medium {
+    @extend .row-Werte;
+    @extend .optimal;
+    @extend .medium;
+}
+.row-Werte_optimal_large {
+    @extend .row-Werte;
+    @extend .optimal;
+    @extend .large;
+}
+.row-Werte_optimal_larger {
+    @extend .row-Werte;
+    @extend .optimal;
+    @extend .larger;
+}
+
+.row-Werte_normal_smaller {
+    @extend .row-Werte;
+    @extend .normal;
+    @extend .smaller;
+}
+.row-Werte_normal_small {
+    @extend .row-Werte;
+    @extend .normal;
+    @extend .small;
+}
+.row-Werte_normal_medium {
+    @extend .row-Werte;
+    @extend .normal;
+    @extend .medium;
+}
+.row-Werte_normal_large {
+    @extend .row-Werte;
+    @extend .normal;
+    @extend .large;
+}
+.row-Werte_normal_larger {
+    @extend .row-Werte;
+    @extend .normal;
+    @extend .larger;
+}
+
+.row-Werte_hochnormal_smaller {
+    @extend .row-Werte;
+    @extend .hochnormal;
+    @extend .smaller;
+}
+.row-Werte_hochnormal_small {
+    @extend .row-Werte;
+    @extend .hochnormal;
+    @extend .small;
+}
+.row-Werte_hochnormal_medium {
+    @extend .row-Werte;
+    @extend .hochnormal;
+    @extend .medium;
+}
+.row-Werte_hochnormal_large {
+    @extend .row-Werte;
+    @extend .hochnormal;
+    @extend .large;
+}
+.row-Werte_hochnormal_larger {
+    @extend .row-Werte;
+    @extend .hochnormal;
+    @extend .larger;
+}
+
+.row-Werte_stufe1_smaller {
+    @extend .row-Werte;
+    @extend .stufe1;
+    @extend .smaller;
+}
+.row-Werte_stufe1_small {
+    @extend .row-Werte;
+    @extend .stufe1;
+    @extend .small;
+}
+.row-Werte_stufe1_medium {
+    @extend .row-Werte;
+    @extend .stufe1;
+    @extend .medium;
+}
+.row-Werte_stufe1_large {
+    @extend .row-Werte;
+    @extend .stufe1;
+    @extend .large;
+}
+.row-Werte_stufe1_larger {
+    @extend .row-Werte;
+    @extend .stufe1;
+    @extend .larger;
+}
+
+.row-Werte_stufe2_smaller {
+    @extend .row-Werte;
+    @extend .stufe2;
+    @extend .smaller;
+}
+.row-Werte_stufe2_small {
+    @extend .row-Werte;
+    @extend .stufe2;
+    @extend .small;
+}
+.row-Werte_stufe2_medium {
+    @extend .row-Werte;
+    @extend .stufe2;
+    @extend .medium;
+}
+.row-Werte_stufe2_large {
+    @extend .row-Werte;
+    @extend .stufe2;
+    @extend .large;
+}
+.row-Werte_stufe2_larger {
+    @extend .row-Werte;
+    @extend .stufe2;
+    @extend .larger;
+}
+
+.row-Werte_stufe3_smaller {
+    @extend .row-Werte;
+    @extend .stufe3;
+    @extend .smaller;
+}
+.row-Werte_stufe3_small {
+    @extend .row-Werte;
+    @extend .stufe3;
+    @extend .small;
+}
+.row-Werte_stufe3_medium {
+    @extend .row-Werte;
+    @extend .stufe3;
+    @extend .medium;
+}
+.row-Werte_stufe3_large {
+    @extend .row-Werte;
+    @extend .stufe3;
+    @extend .large;
+}
+.row-Werte_stufe3_larger {
+    @extend .row-Werte;
+    @extend .stufe3;
+    @extend .larger;
+}
+
+
+.row-Werte_puls_langsam_smaller {
+    @extend .row-Werte;
+    @extend .puls_langsam;
+    @extend .smaller;
+}
+.row-Werte_puls_langsam_small {
+    @extend .row-Werte;
+    @extend .puls_langsam;
+    @extend .small;
+}
+.row-Werte_puls_langsam_medium {
+    @extend .row-Werte;
+    @extend .puls_langsam;
+    @extend .medium;
+}
+.row-Werte_puls_langsam_large {
+    @extend .row-Werte;
+    @extend .puls_langsam;
+    @extend .large;
+}
+.row-Werte_puls_langsam_larger {
+    @extend .row-Werte;
+    @extend .puls_langsam;
+    @extend .larger;
+}
+
+.row-Werte_puls_normal_smaller {
+    @extend .row-Werte;
+    @extend .puls_normal;
+    @extend .smaller;
+}
+.row-Werte_puls_normal_small {
+    @extend .row-Werte;
+    @extend .puls_normal;
+    @extend .small;
+}
+.row-Werte_puls_normal_medium {
+    @extend .row-Werte;
+    @extend .puls_normal;
+    @extend .medium;
+}
+.row-Werte_puls_normal_large {
+    @extend .row-Werte;
+    @extend .puls_normal;
+    @extend .large;
+}
+.row-Werte_puls_normal_larger {
+    @extend .row-Werte;
+    @extend .puls_normal;
+    @extend .larger;
+}
+
+.row-Werte_puls_schnell_smaller {
+    @extend .row-Werte;
+    @extend .puls_schnell;
+    @extend .smaller;
+}
+.row-Werte_puls_schnell_small {
+    @extend .row-Werte;
+    @extend .puls_schnell;
+    @extend .small;
+}
+.row-Werte_puls_schnell_medium {
+    @extend .row-Werte;
+    @extend .puls_schnell;
+    @extend .medium;
+}
+.row-Werte_puls_schnell_large {
+    @extend .row-Werte;
+    @extend .puls_schnell;
+    @extend .large;
+}
+.row-Werte_puls_schnell_larger {
+    @extend .row-Werte;
+    @extend .puls_schnell;
+    @extend .larger;
+}
+
+
+.row-Werte_gew_normal_smaller {
+    @extend .row-Werte;
+    @extend .gew_normal;
+    @extend .smaller;
+}
+.row-Werte_gew_normal_small {
+    @extend .row-Werte;
+    @extend .gew_normal;
+    @extend .small;
+}
+.row-Werte_gew_normal_medium {
+    @extend .row-Werte;
+    @extend .gew_normal;
+    @extend .medium;
+}
+.row-Werte_gew_normal_large {
+    @extend .row-Werte;
+    @extend .gew_normal;
+    @extend .large;
+}
+.row-Werte_gew_normal_larger {
+    @extend .row-Werte;
+    @extend .gew_normal;
+    @extend .larger;
+}
+
+
+.row-Werte_Bem_smaller {
+    @extend .row-Werte;
+    @extend .smaller;
+    text-align-last: left;
+}
+.row-Werte_Bem_small {
+    @extend .row-Werte;
+    @extend .small;
+    text-align-last: left;
+}
+.row-Werte_Bem_medium {
+    @extend .row-Werte;
+    @extend .medium;
+    text-align-last: left;
+}
+.row-Werte_Bem_large {
+    @extend .row-Werte;
+    @extend .large;
+    text-align-last: left;
+}
+.row-Werte_Bem_larger {
+    @extend .row-Werte;
+    @extend .larger;
+    text-align-last: left;
+}

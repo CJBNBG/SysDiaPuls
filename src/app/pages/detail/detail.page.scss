@@ -1,0 +1,148 @@
+//ion-col {
+//  flex-direction: column;
+//  display: flex;
+//  font-size: 15px;
+//  padding: 0pt;
+//  background-color: gray;
+//   margin-left: 0pt;
+//   margin-right: 0pt;
+//   margin-top: 0pt;
+//   margin-bottom: 0pt;
+//   width: 27pt;
+// }
+
+.myDetailGroup {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+  margin: 0px;
+  border-collapse: separate;
+  border-spacing: 0px 0px;           // horizontal und dann vertikal
+  border-width: medium, 0, 0, medium;
+  border-color: red;
+}
+.row-Zeitpunkt_smaller {
+  width: 50%; 
+  font-size: smaller;
+}
+.row-Zeitpunkt_small {
+  width: 50%; 
+  font-size: small;
+}
+.row-Zeitpunkt_medium {
+  width: 50%; 
+  font-size: medium;
+}
+.row-Zeitpunkt_large {
+  width: 50%; 
+  font-size: large;
+}
+.row-Zeitpunkt_larger {
+  width: 50%; 
+  font-size: larger;
+}
+
+.row-Bezeichnung {
+  width: 50%;
+  border: 0pt;
+  margin: 0pt;
+}
+.row-Bezeichnung_smaller {
+  font-size: smaller;
+}
+.row-Bezeichnung_small {
+  font-size: small;
+}
+.row-Bezeichnung_medium {
+  font-size: medium;
+}
+.row-Bezeichnung_large {
+  font-size: large;
+}
+.row-Bezeichnung_larger {
+  font-size: larger;
+}
+
+.row-Minus {
+  width: 13%;
+}
+
+.row-Wert {
+  text-align: center;
+  width: 23%;
+  margin: 0pt;
+  border: 0pt;
+  background-color: #c6ebfc;
+}
+.row-Wert_smaller {
+  background-color: #c6ebfc;
+  text-align: center;
+  font-size: smaller;
+}
+.row-Wert_small {
+  background-color: #c6ebfc;
+  text-align: center;
+  font-size: small;
+}
+.row-Wert_medium {
+  background-color: #c6ebfc;
+  text-align: center;
+  font-size: medium;
+}
+.row-Wert_large {
+  background-color: #c6ebfc;
+  text-align: center;
+  font-size: large;
+}
+.row-Wert_larger {
+  background-color: #c6ebfc;;
+  text-align: center;
+  font-size: larger;
+}
+
+.row-Plus {
+  width: 14%;
+}
+
+.row-Bemerkung {
+  text-align: justify;
+  width: 100%;
+  margin: 0pt;
+  border: 0px;
+  border-width: 0px;
+}
+.row-Bemerkung_smaller {
+  @extend .row-Bemerkung;
+  font-size: smaller;
+}
+.row-Bemerkung_small {
+  @extend .row-Bemerkung;
+  font-size: small;
+}
+.row-Bemerkung_medium {
+  @extend .row-Bemerkung;
+  font-size: medium;
+}
+.row-Bemerkung_large {
+  @extend .row-Bemerkung;
+  font-size: large;
+}
+.row-Bemerkung_larger {
+  @extend .row-Bemerkung;
+  font-size: larger;
+}
+
+ion-content {
+  .error-message
+  {
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  
+  .submit-btn {
+    margin: 48px 12px 12px;
+  }
+}
+  

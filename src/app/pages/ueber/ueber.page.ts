@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-ueber',
@@ -15,8 +16,17 @@ export class UeberPage implements OnInit {
   thePackageName: any;
   theVersionCode: any;
   theVersionNumber: any;
+  myWidth: number = 0;
+  myHeight: number = 0;
 
-  constructor(private appVersion: AppVersion, private router: Router) {}
+  constructor(private appVersion: AppVersion, 
+              private router: Router,
+              platform: Platform) {
+    platform.ready().then(() => {
+      this.myWidth = platform.width();
+      this.myHeight = platform.height();
+    });
+  }
 
   goHome() {
     this.thePath = ['home'];
@@ -30,77 +40,55 @@ export class UeberPage implements OnInit {
     this.router.navigate(this.thePath);
   }
 
-  GetAppName()
+  async GetAppName()
   {
-    this.appVersion.getAppName().then((appname) => {
-      this.theAppName = appname;
-    }
-/*    
-    ,(err) => {
-      alert( JSON.stringify(err));
-    }
-*/    
-    )
+    return await this.appVersion.getAppName();
   }
 
-  GetPackageName()
+  async GetPackageName()
   {
-    this.appVersion.getPackageName().then((packagename) => {
-      this.thePackageName = packagename;
-    }
-    /*    
-        ,(err) => {
-          alert( JSON.stringify(err));
-        }
-    */    
-    )
+    return await this.appVersion.getPackageName();
   }
 
-  GetVersionCode()
+  async GetVersionCode()
   {
-    this.appVersion.getVersionCode().then((versioncode) => {
-      this.theVersionCode = versioncode;
-    }
-    /*    
-        ,(err) => {
-          alert( JSON.stringify(err));
-        }
-    */    
-    )
+    return await this.appVersion.getVersionCode();
   }
 
-  GetVersionNumber()
+  async GetVersionNumber()
   {
-    this.appVersion.getVersionNumber().then((versionnumber) => {
-      this.theVersionNumber = versionnumber;
-    }
-    /*    
-        ,(err) => {
-          alert( JSON.stringify(err));
-        }
-    */    
-    )
+    return await this.appVersion.getVersionNumber();
+  }
+
+  async getVersionInfo() {
+    this.theVersionNumber = await this.GetVersionNumber();
+    this.theAppName = await this.GetAppName();
+    this.thePackageName = await this.GetPackageName();
+    this.theVersionCode = await this.GetVersionCode();
   }
 
   ngOnInit() {
+    this.getVersionInfo();
   }
 
-  ionViewWillEnter() { 
-
-    this.GetVersionNumber();
-    this.GetAppName();
-    this.GetPackageName();
-    this.GetVersionCode();
-
+  async AnzeigeDetails() {
+    await this.getVersionInfo();
     this.lblAppVersion = document.getElementById('txtAppVersion').getElementsByTagName('textarea')[0];
 
-    this.lblAppVersion.value = "Versionsnummer:\t" + this.theVersionNumber
-                               + "\nVersionscode:\t\t" + this.theVersionCode
-                               + "\nName der App:\t\t" + this.theAppName
-                               + "\nPackagename:\t\t" + this.thePackageName
-                               + "\nAusgabedatum:\t\t20.10.2020";
-    
+    if ( this.myWidth != 0 && this.myHeight != 0 ) {
+      this.lblAppVersion.value = "Versionsnummer:\t" + this.theVersionNumber
+                                + "\nVersionscode:\t\t" + this.theVersionCode
+                                + "\nName der App:\t\t" + this.theAppName
+                                + "\nPackagename:\t\t" + this.thePackageName
+                                + "\nAnzeigeformat:\t\t" + this.myWidth.toString() + "x" + this.myHeight.toString();
+      this.lblAppVersion.rows = "6";
+    } else {
+      this.lblAppVersion.value = "Versionsnummer:\t" + this.theVersionNumber
+                                + "\nVersionscode:\t\t" + this.theVersionCode
+                                + "\nName der App:\t\t" + this.theAppName
+                                + "\nPackagename:\t\t" + this.thePackageName;
+      this.lblAppVersion.rows = "5";
+    }
     console.log(this.lblAppVersion.value);
-
   }
 }
