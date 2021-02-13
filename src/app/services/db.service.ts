@@ -29,13 +29,13 @@ export class DbService {
         (db: SQLiteObject) => {
           this.dbInstance = db;
           db.executeSql('CREATE TABLE IF NOT EXISTS '
-            + 'tDaten(pid INTEGER PRIMARY KEY AUTOINCREMENT,'
-            + 'Zeitpunkt DATETIME,'
-            + 'Systole INTEGER,'
-            + 'Diastole INTEGER,'
-            + 'Puls INTEGER,'
-            + 'Gewicht FLOAT,'
-            + 'Bemerkung TEXT'
+            + 'tDaten(pid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
+            + 'Zeitpunkt DATETIME NOT NULL,'
+            + 'Systole INTEGER NOT NULL,'
+            + 'Diastole INTEGER NOT NULL,'
+            + 'Puls INTEGER NOT NULL,'
+            + 'Gewicht FLOAT NULL,'
+            + 'Bemerkung TEXT NULL'
             + ')', [])
             .then(() => console.log('Datenbank geöffnet'))
             .catch(e => console.log(e));

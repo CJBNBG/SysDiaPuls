@@ -74,23 +74,34 @@ export class HomePage {
   }
 
   async presentAlertConfirm() {
+    const msg: string = "Sie können die bestehenden Einträge in der Datenbank entweder nur löschen oder durch Zufallseinträge ersetzen."
+                        + "<br><br><strong>Wollen Sie das?</strong></br></br>"
+                        + "Mit 'Abbrechen' bleibt alles unverändert."
+                        + "<br>Mit 'Nur Löschen' werden alle bestehenden Einträge gelöscht.</br>"
+                        + "<br>Mit 'Zufallseinträge' werden alle bestehenden Einträge gelöscht und 10 neue Einträge mit zufälligem Inhalt eingetragen.</br>";
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Achtung!',
-      message: 'Es werden alle bestehenden Einträge gelöscht und dann zehn neue Zufallseinträge erzeugt.<br><br><strong>Wollen Sie das?</strong></br></br>',
+      header: 'ACHTUNG!',
+      message: msg,
       buttons: [
         {
-          text: 'Nein',
+          text: 'Abbrechen',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Datensätze nicht löschen');
+            console.log('Aktion abgebrochen');
           }
         }, {
-          text: 'Ja',
+          text: 'Zufallseinträge',
           handler: () => {
             this.ErgaenzeTestdaten();
-            console.log('Datensätze löschen und neu erstellen');
+            console.log('Zufallseinträge erstellen');
+          }
+        }, {
+          text: 'Nur Löschen',
+          handler: () => {
+            this.dbService.deleteAllRecords();
+            console.log('Datensätze löschen');
           }
         }
       ]

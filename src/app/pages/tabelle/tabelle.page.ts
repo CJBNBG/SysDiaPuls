@@ -37,12 +37,29 @@ export class TabellePage implements OnInit {
     } else if ( this.myWidth>=576 && this.myWidth<768 ) {
       return "small";
     } else if ( this.myWidth>=768 && this.myWidth<992 ) {
-      return "medium";
+      return "small";
+      // return "medium";
     } else if ( this.myWidth>=992 && this.myWidth<1200 ) {
-      return "large";
+      return "small";
+      // return "large";
     } else {
-      return "larger";
+      return "small";
+      // return "larger";
     }
+  }
+
+  myUebZeit() {
+    let Erg: string = "row-Zeit_Ueb";
+    return Erg;
+  }
+  myUebWerte() {
+    return "row-Werte_Ueb";
+  }
+  myUebBem() {
+    return "row-Bem_Ueb";
+  }
+  myUebButton() {
+    return "row-Button_Ueb";
   }
 
   myZeitpunktFormat(record: DataInterface) {
@@ -161,7 +178,11 @@ export class TabellePage implements OnInit {
     await this.storage.set('Systole', rec.Systole);
     await this.storage.set('Diastole', rec.Diastole);
     await this.storage.set('Puls', rec.Puls);
-    await this.storage.set('Gewicht', rec.Gewicht);
+    if ( rec.Gewicht !== null ) {
+      await this.storage.set('Gewicht', rec.Gewicht);
+    } else {
+      await this.storage.set('Gewicht', null);
+    }
     await this.storage.set('Bemerkung', rec.Bemerkung);
     await this.router.navigate(['./detail']);
   }
@@ -202,9 +223,9 @@ export class TabellePage implements OnInit {
     await this.storage.set('Zeitpunkt', new Date().toISOString());
     await this.storage.set('Systole', 120);
     await this.storage.set('Diastole', 80);
-    await this.storage.set('Puls', 67);
+    await this.storage.set('Puls', null);
     await this.storage.set('Gewicht', 79.5);
-    await this.storage.set('Bemerkung', "neuer Eintrag");
+    await this.storage.set('Bemerkung', "");
     await this.router.navigate(['./detail']);
   }
 

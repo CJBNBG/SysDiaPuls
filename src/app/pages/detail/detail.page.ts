@@ -45,13 +45,13 @@ export class DetailPage implements OnInit {
       //GewichtValidator.validGewicht,
       Validators.maxLength(5),
       Validators.minLength(1),
-      Validators.pattern('[0-9]{2,3}.[0-9]'),
-      Validators.required
+      Validators.pattern('[0-9]{2,3}.[0-9]')
+      // Validators.required
     ])),
     ctlBemerkung: new FormControl('', Validators.compose([
-      Validators.minLength(1),
-      Validators.pattern('^[a-zA-Z][a-zäöüÄÖÜßA-Z0-9_(){}=?!<>°$%&+*/.,:;~ ]{0,1000}'), // \-
-      Validators.required
+      Validators.minLength(0),
+      Validators.pattern('^[a-zA-Z][a-zäöüÄÖÜßA-Z0-9_(){}=?!<>°$%&+*/.,:;~ ]{0,1000}') // \-
+      // Validators.required
     ]))
   });
 
@@ -80,14 +80,14 @@ export class DetailPage implements OnInit {
     ],
     'ctlGewicht': [
       //{ type: 'validGewicht', message: 'Der Wert muss positiv sein und darf nicht größer sein als 300.' },
-      { type: 'minlength', message: 'Der Wert muss mindestens 1 Stellen haben.' },
+      { type: 'minlength', message: 'Der Wert muss mindestens 1 Stelle haben.' },
       { type: 'maxlength', message: 'Der Wert darf maximal 5 Stellen inkl. Komma haben.' },
       { type: 'pattern', message: 'Es dürfen nur Zahlen mit einer Nachkommastelle eingegeben werden.' },
-      { type: 'required', message: 'Es ist ein Wert für das Gewicht erforderlich.' }
+      { type: 'required', message: 'Es ist kein Wert für das Gewicht erforderlich.' }
     ],
     'ctlBemerkung': [
       { type: 'minlength', message: 'Eine Bemerkung muss mindestens 1 Zeichen lang sein.' },
-      { type: 'required', message: 'Eine Bemerkung ist erforderlich.' }
+      { type: 'required', message: 'Eine Bemerkung ist nicht erforderlich.' }
     ]
   };
 
@@ -109,8 +109,8 @@ export class DetailPage implements OnInit {
       Systole: 120,
       Diastole: 80,
       Puls: 60,
-      Gewicht: 80.0,
-      Bemerkung: "Dummy-Datensatz"
+      Gewicht: null,
+      Bemerkung: ""
     });
     console.log(JSON.stringify(this.thisRecord));
     this.init();
@@ -321,9 +321,9 @@ export class DetailPage implements OnInit {
         ctlZeitpunkt: new Date().toISOString(),
         ctlDiastole: "80",
         ctlSystole: "120",
-        ctlPuls: "60",
+        ctlPuls: "70",
         ctlGewicht: "80.0",
-        ctlBemerkung: "neuer Datensatz"
+        ctlBemerkung: ""
       });
     }
   }

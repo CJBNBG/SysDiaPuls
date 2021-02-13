@@ -162,7 +162,7 @@
                           <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="GewichtPlusMinus('-')">-</ion-button>
                         </td>                          
                         <td>
-                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" formControlName="ctlGewicht" readonly required></ion-input>
+                          <ion-input [ngClass]="myWertFormat(thisRecord)" mode="md" formControlName="ctlGewicht" type="number" min="0.0" max="300.0"></ion-input>
                         </td>
                         <td style="background-color:#c6ebfc;" >
                           <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="GewichtPlusMinus('+')">+</ion-button>
@@ -178,7 +178,7 @@
                   <ion-text [ngClass]="myBezeichnungFormat(thisRecord)">Bemerkung:</ion-text>
                 </ion-item>
                 <ion-item style="width: 100%; border: 0px; margin: 0px;">
-                  <ion-textarea [ngClass]="myBemerkungFormat(thisRecord)" style="background-color: #c6ebfc;;" rows="3" mode="md" formControlName="ctlBemerkung" type="text" required>
+                  <ion-textarea [ngClass]="myBemerkungFormat(thisRecord)" style="background-color: #c6ebfc;;" rows="3" mode="md" formControlName="ctlBemerkung" type="text">
                   </ion-textarea>
                   <div *ngIf="detailform.get('ctlBemerkung').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
                 </ion-item>

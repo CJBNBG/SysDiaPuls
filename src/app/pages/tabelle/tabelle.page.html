@@ -38,6 +38,55 @@
     <ion-grid>
       <ion-row>
         <ion-col size-md="6" offset-md="3">
+
+          <!-- Überschriftszeile zur Erläuterung -->
+          <table class="myTableUeberschrift">
+            <thead>
+              <tr>
+                <th class="row-1 row-Zeitpunkt"></th>
+                <th class="row-2 row-Werte"></th>
+                <th class="row-3 row-Button"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!-- erste Spalte row-Zeitpunkt -->
+                <td>
+                  <ion-text [ngClass]="myUebZeit()">
+                    <div class="ion-text-center">Zeitpunkt</div>
+                  </ion-text>
+                </td>
+                <!-- zweite Spalte row-Werte -->
+                <td>
+                  <ion-grid>
+                    <ion-row>
+                      <!-- <ion-col>{{slNo+1}}</ion-col> -->
+                      <ion-col size-md="3" [ngClass]="myUebWerte()">Systole<br>(mmHg)</ion-col>
+                      <ion-col size-md="3" [ngClass]="myUebWerte()">Diastole<br>(mmHg)</ion-col>
+                      <ion-col size-md="3" [ngClass]="myUebWerte()">Puls<br>(bps)</ion-col>
+                      <ion-col size-md="3" [ngClass]="myUebWerte()">Gewicht<br>(kg)</ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col [ngClass]="myUebBem()">Bemerkung</ion-col>
+                    </ion-row>
+                    <!-- <ion-row>
+                      <ion-col>
+                      </ion-col>
+                    </ion-row> -->
+                  </ion-grid>
+                </td>     
+                <!-- dritte Spalte row-Button -->
+                <td>
+                  <ion-text [ngClass]="myUebButton()">
+                    <div class="ion-text-center">Eintrag<br>l&ouml;schen</div>
+                  </ion-text>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
           <ion-list>
             <ion-item lines="full" mode="md" *ngFor="let record of records;index as slNo">
 
@@ -75,10 +124,10 @@
                           <ion-col [ngClass]="myBemerkungFormat(record)">{{record.Bemerkung}} (ID={{record.pid}})
                           </ion-col>
                         </ion-row>
-                        <ion-row>
+                        <!-- <ion-row>
                           <ion-col>
                           </ion-col>
-                        </ion-row>
+                        </ion-row> -->
                       </ion-grid>
                     </td>     
                     <!-- dritte Spalte row-Button -->

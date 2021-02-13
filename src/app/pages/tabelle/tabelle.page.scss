@@ -1,18 +1,59 @@
-ion-grid {
-    margin: 0;
-    border: 0;
-}
-ion-item {
-    margin: 0;
-    border: 0;
-}
+// ion-grid {
+//     margin: 0;
+//     border: 0;
+// }
+// ion-item {
+//     margin: 0;
+//     border: 0;
+// }
 .myTableGroup {
     width: 100%;
     table-layout: fixed;
     word-wrap: break-word;
 }
+.myTableUeberschrift {
+    @extend .myTableGroup;
+    background-color:  #c1ebff;
+    margin: 0pt;
+    border: 0pt;
+}
 .my-alert-class {
    background-color: lightcoral;
+}
+.row-Zeit_Ueb {
+    width: 25%;
+    margin: 0pt;
+    border: 0pt;
+    vertical-align: middle;
+    text-align: center;
+    text-align-last: center;
+    font-size: 7pt;
+}
+.row-Werte_Ueb {
+    @extend .row-Werte;
+    border-left: 0px solid #58caff;
+    border-top: 0px solid #58caff;
+    border-right: 0px solid #58caff;
+    border-bottom: 3px solid #58caff;
+    // background-color: #c1ebff;
+    font-size: 7pt;
+}
+.row-Bem_Ueb {
+    @extend .row-Werte;
+    text-align: start;
+    text-align-last: start;
+    // background-color: #c1ebff;
+    font-size: 7pt;
+}
+.row-Button_Ueb {
+    width: 15%;
+    margin: 0pt;
+    border: 0pt;
+    vertical-align: middle;
+    text-align: center;
+    text-align-last: center;
+    // background-color: #c1ebff;
+    font-size: 7pt;
 }
 .row-Zeitpunkt {
     width: 25%;
@@ -50,84 +91,84 @@ ion-item {
     font-size: larger;
 }
 .optimal {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: green;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid green;
+    border-top: 0px solid green;
+    border-right: 0px solid green;
+    border-bottom: 3px solid green;
+    background-color: rgb(212, 238, 212);
 }
 .normal {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color:  rgb(155, 255, 155);
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid rgb(155, 255, 155);
+    border-top: 0px solid rgb(155, 255, 155);
+    border-right: 0px solid rgb(155, 255, 155);
+    border-bottom: 3px solid rgb(155, 255, 155);
+    background-color:  rgb(231, 253, 231);
 }
 .hochnormal {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color:  rgb(221, 224, 70);
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid rgb(221, 224, 70);
+    border-top: 0px solid rgb(221, 224, 70);
+    border-right: 0px solid rgb(221, 224, 70);
+    border-bottom: 3px solid rgb(221, 224, 70);
+    background-color:  rgb(245, 245, 227);
 }
 .stufe1 {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color:  rgb(248, 134, 72);
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid rgb(248, 134, 72);
+    border-top: 0px solid rgb(248, 134, 72);
+    border-right: 0px solid rgb(248, 134, 72);
+    border-bottom: 3px solid rgb(248, 134, 72);
+    background-color:  rgb(245, 231, 223);
 }
 .stufe2 {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color:  rgb(255, 68, 68);
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid rgb(255, 68, 68);
+    border-top: 0px solid rgb(255, 68, 68);
+    border-right: 0px solid rgb(255, 68, 68);
+    border-bottom: 3px solid rgb(255, 68, 68);
+    background-color:  rgb(255, 232, 232);
 }
 .stufe3 {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: red;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid red;
+    border-top: 0px solid red;
+    border-right: 0px solid red;
+    border-bottom: 3px solid red;
+    background-color: rgb(255, 235, 235);
 }
 .puls_normal {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: green;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid green;
+    border-top: 0px solid green;
+    border-right: 0px solid green;
+    border-bottom: 3px solid green;
+    background-color: rgb(212, 238, 212);
 }
 .puls_langsam {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: aqua;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid aqua;
+    border-top: 0px solid aqua;
+    border-right: 0px solid aqua;
+    border-bottom: 3px solid aqua;
+    background-color: rgb(235, 255, 255);
 }
 .puls_schnell {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: lightcoral;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid lightcoral;
+    border-top: 0px solid lightcoral;
+    border-right: 0px solid lightcoral;
+    border-bottom: 3px solid lightcoral;
+    background-color: rgb(240, 224, 224);
 }
 .gew_normal {
-    border-style: solid;
-    border-left: 0px;
-    border-top: 0px;
-    border-right: 0px;
-    border-color: lightgreen;
-    text-align-last: center;
+    @extend .row-Werte;
+    border-left: 0px solid lightgreen;
+    border-top: 0px solid lightgreen;
+    border-right: 0px solid lightgreen;
+    border-bottom: 3px solid lightgreen;
+    background-color: rgb(222, 236, 222);
 }
 
 
