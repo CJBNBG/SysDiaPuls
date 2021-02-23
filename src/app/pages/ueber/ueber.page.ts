@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Platform } from '@ionic/angular';
@@ -11,6 +11,7 @@ import { Platform } from '@ionic/angular';
 export class UeberPage implements OnInit {
 
   lblAppVersion: any;
+  public btnText = "weitere Details anzeigen";
   thePath: any;
   theAppName: any;
   thePackageName: any;
@@ -18,6 +19,7 @@ export class UeberPage implements OnInit {
   theVersionNumber: any;
   myWidth: number = 0;
   myHeight: number = 0;
+  showDetails: boolean = false;
 
   constructor(private appVersion: AppVersion, 
               private router: Router,
@@ -72,23 +74,62 @@ export class UeberPage implements OnInit {
   }
 
   async AnzeigeDetails() {
-    await this.getVersionInfo();
     this.lblAppVersion = document.getElementById('txtAppVersion').getElementsByTagName('textarea')[0];
-
-    if ( this.myWidth != 0 && this.myHeight != 0 ) {
-      this.lblAppVersion.value = "Versionsnummer:\t" + this.theVersionNumber
-                                + "\nVersionscode:\t\t" + this.theVersionCode
-                                + "\nName der App:\t\t" + this.theAppName
-                                + "\nPackagename:\t\t" + this.thePackageName
-                                + "\nAnzeigeformat:\t\t" + this.myWidth.toString() + "x" + this.myHeight.toString();
-      this.lblAppVersion.rows = "6";
+    if ( this.showDetails === false ) {
+      await this.getVersionInfo();
+  
+      let strZeilen: string = "5";
+      let strAusgabe: string = "Versionsnummer:\t" + this.theVersionNumber
+      + "\nVersionscode:\t\t" + this.theVersionCode
+      + "\nName der App:\t\t" + this.theAppName
+      + "\nPackagename:\t\t" + this.thePackageName;
+      if ( this.myWidth != 0 && this.myHeight != 0 ) {
+        strAusgabe += "\nAnzeigeformat:\t\t" + this.myWidth.toString() + "x" + this.myHeight.toString();
+        strZeilen = "6";
+      } else {
+        strZeilen = "5";
+      }
+      this.lblAppVersion.value = strAusgabe;
+      this.lblAppVersion.rows = strZeilen;
+      this.btnText = "weitere Details verstecken";
+      console.log(this.lblAppVersion.value);
+      this.showDetails = true;
     } else {
-      this.lblAppVersion.value = "Versionsnummer:\t" + this.theVersionNumber
-                                + "\nVersionscode:\t\t" + this.theVersionCode
-                                + "\nName der App:\t\t" + this.theAppName
-                                + "\nPackagename:\t\t" + this.thePackageName;
-      this.lblAppVersion.rows = "5";
+      this.lblAppVersion.value = "";
+      this.lblAppVersion.rows = "0";
+      this.btnText = "weitere Details anzeigen";
+      this.showDetails = false;
     }
-    console.log(this.lblAppVersion.value);
+  }
+
+  showOptimal() {
+    return "optimal";
+  }
+  showNormal() {
+    return "normal";
+  }
+  showHochnormal() {
+    return "hochnormal";
+  }
+  showStufe1() {
+    return "stufe1";
+  }
+  showStufe2() {
+    return "stufe2";
+  }
+  showStufe3() {
+    return "stufe3";
+  }
+  showPulsLangsam() {
+    return "puls_langsam";
+  }
+  showPulsNormal() {
+    return "puls_normal";
+  }
+  showPulsSchnell() {
+    return "puls_schnell";
+  }
+  showGewichtNormal() {
+    return "gew_normal";
   }
 }

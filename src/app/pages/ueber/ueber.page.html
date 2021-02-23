@@ -33,13 +33,72 @@
             <ion-card-title>Claus J. Bauer</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Kontakt: <a href='mailto:claus@clausjbauer.de'>Email an den Autor</a>
+            Kontakt: <a href="mailto:claus@clausjbauer.de">EMail an den Autor</a>
+            <br />erstellt: 23.02.2021 16:30
             <br />
-            erstellt: 02.02.2021 20:00
-            <br />
-            <br />
-            <ion-button (click)="AnzeigeDetails()">weitere Details anzeigen</ion-button>
+            <ion-button ion-button (click)="AnzeigeDetails()">{{btnText}}</ion-button>
             <ion-textarea rows="0" maxlength="20" readonly id="txtAppVersion" value=''></ion-textarea>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>verwendete Farben</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <!-- Systole -->
+              <ion-row class="ion-align-items-center" style="margin-top: 5pt;">
+                <ion-text>
+                  <div class="ion-text-start">Systole (mmHg):</div>
+                </ion-text>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showOptimal()">optimal:<br />unter 120</ion-col>
+                <ion-col [ngClass]="showNormal()">normal:<br />120 - 129</ion-col>
+                <ion-col [ngClass]="showHochnormal()">hochnormal:<br />130 - 139</ion-col>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showStufe1()">Stufe 1:<br />140 - 159</ion-col>
+                <ion-col [ngClass]="showStufe2()">Stufe 2:<br />160 - 179</ion-col>
+                <ion-col [ngClass]="showStufe3()">Stufe 3:<br />ab 180</ion-col>
+              </ion-row>
+              <!-- Diastole -->
+              <ion-row class="ion-align-items-center" style="margin-top: 20pt;">
+                <ion-text>
+                  <div class="ion-text-start">Diastole (mmHg):</div>
+                </ion-text>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showOptimal()">optimal:<br />unter 80</ion-col>
+                <ion-col [ngClass]="showNormal()">normal:<br />80 - 84</ion-col>
+                <ion-col [ngClass]="showHochnormal()">hochnormal:<br />85 - 89</ion-col>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showStufe1()">Stufe 1:<br />90 - 99</ion-col>
+                <ion-col [ngClass]="showStufe2()">Stufe 2:<br />100 - 109</ion-col>
+                <ion-col [ngClass]="showStufe3()">Stufe 3:<br />ab 110</ion-col>
+              </ion-row>
+              <!-- Puls -->
+              <ion-row class="ion-align-items-center" style="margin-top: 20pt;">
+                <ion-text>
+                  <div class="ion-text-start">Puls (bps):</div>
+                </ion-text>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showPulsLangsam()">langsam:<br />unter 60</ion-col>
+                <ion-col [ngClass]="showPulsNormal()">normal:<br />60 - 99</ion-col>
+                <ion-col [ngClass]="showPulsSchnell()">schnell:<br />ab 100</ion-col>
+              </ion-row>
+              <!-- Gewicht -->
+              <ion-row class="ion-align-items-center" style="margin-top: 20pt;">
+                <ion-text>
+                  <div class="ion-text-start">Gewicht (kg):</div>
+                </ion-text>
+              </ion-row>
+              <ion-row class="ion-align-items-center">
+                <ion-col [ngClass]="showGewichtNormal()">normal:<br />ab 0.0</ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
       </ion-col>

@@ -111,18 +111,14 @@
                       <ion-grid>
                         <ion-row (click)="AnzeigeDetails(record)" class="ion-align-items-center">
                           <!-- <ion-col>{{slNo+1}}</ion-col> -->
-                          <ion-col size-md="3" [ngClass]="mySystoleFormat(record)">{{record.Systole}}
-                          </ion-col>
-                          <ion-col size-md="3" [ngClass]="myDiastoleFormat(record)">{{record.Diastole}}
-                          </ion-col>
-                          <ion-col size-md="3" [ngClass]="myPulsFormat(record)">{{record.Puls}}
-                          </ion-col>
-                          <ion-col size-md="3" [ngClass]="myGewichtFormat(record)">{{record.Gewicht}}
-                          </ion-col>
+                          <ion-col size-md="3" [ngClass]="mySystoleFormat(record)">{{record.Systole}}</ion-col>
+                          <ion-col size-md="3" [ngClass]="myDiastoleFormat(record)">{{record.Diastole}}</ion-col>
+                          <ion-col size-md="3" [ngClass]="myPulsFormat(record)">{{record.Puls}}</ion-col>
+                          <ion-col size-md="3" [ngClass]="myGewichtFormat(record)">{{record.Gewicht}}</ion-col>
                         </ion-row>
                         <ion-row (click)="AnzeigeDetails(record)">
-                          <ion-col [ngClass]="myBemerkungFormat(record)">{{record.Bemerkung}} (ID={{record.pid}})
-                          </ion-col>
+                          <!-- <ion-col [ngClass]="myBemerkungFormat(record)">{{record.Bemerkung}} (ID={{record.pid}}) -->
+                          <ion-col [ngClass]="myBemerkungFormat(record)">{{record.Bemerkung}}</ion-col>
                         </ion-row>
                         <!-- <ion-row>
                           <ion-col>

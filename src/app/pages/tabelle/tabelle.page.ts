@@ -218,7 +218,7 @@ export class TabellePage implements OnInit {
     this.doInit();
   }
 
-  async AnzeigeNeu(rec: DataInterface) {
+  async AnzeigeNeu() {
     await this.storage.set('ID', -1);
     await this.storage.set('Zeitpunkt', new Date().toISOString());
     await this.storage.set('Systole', 120);
