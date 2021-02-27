@@ -105,11 +105,11 @@ export class TabellePage implements OnInit {
 
   myPulsFormat(record: DataInterface) {
     let Erg: string = "row-Werte_";
-    if ( record.Puls<60 ) {
+    if ( record.Puls>0 && record.Puls<60 ) {
       Erg += "puls_langsam";
     } else if ( record.Puls>=60 && record.Puls<=100 ) {
       Erg += "puls_normal";
-    } else {
+    } else if ( record.Puls>100 ) {
       Erg += "puls_schnell";
     }
     return Erg + "_" + this.myScreenFormat();
@@ -173,18 +173,25 @@ export class TabellePage implements OnInit {
   }
   
   async AnzeigeDetails(rec: DataInterface) {
-    await this.storage.set('ID', rec.pid);
-    await this.storage.set('Zeitpunkt', rec.Zeitpunkt);
-    await this.storage.set('Systole', rec.Systole);
-    await this.storage.set('Diastole', rec.Diastole);
-    await this.storage.set('Puls', rec.Puls);
-    if ( rec.Gewicht !== null ) {
-      await this.storage.set('Gewicht', rec.Gewicht);
+    await this.storage.clear();
+    await this.storage.set('ID', rec.pid.toString());
+    await this.storage.set('Zeitpunkt', rec.Zeitpunkt.toString());
+    await this.storage.set('Systole', rec.Systole.toString());
+    await this.storage.set('Diastole', rec.Diastole.toString());
+    if ( rec.Puls !== null ) {
+      await this.storage.set('Puls', rec.Puls.toString());
     } else {
-      await this.storage.set('Gewicht', null);
+      await this.storage.set('Puls', "");
     }
-    await this.storage.set('Bemerkung', rec.Bemerkung);
+    if ( rec.Gewicht !== null ) {
+      await this.storage.set('Gewicht', rec.Gewicht.toString());
+    } else {
+      await this.storage.set('Gewicht', "");
+    }
+    await this.storage.set('Bemerkung', rec.Bemerkung.toString());
+    console.log("Aufruf des Detail-Formulars...");
     await this.router.navigate(['./detail']);
+    console.log("...erfolgt");
   }
 
   async presentAlertConfirm(rec: DataInterface) {
@@ -224,7 +231,7 @@ export class TabellePage implements OnInit {
     await this.storage.set('Systole', 120);
     await this.storage.set('Diastole', 80);
     await this.storage.set('Puls', null);
-    await this.storage.set('Gewicht', 79.5);
+    await this.storage.set('Gewicht', null);
     await this.storage.set('Bemerkung', "");
     await this.router.navigate(['./detail']);
   }

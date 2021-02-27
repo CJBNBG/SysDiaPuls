@@ -46,19 +46,6 @@ export class HomePage {
   ionViewDidEnter() {
     console.log("HomePage: ionViewDidEnter");
     this.dbService.getAllRecords().then(data => this.records = data);
-    /*
-    console.log("HomePage: Datenbank geöffnet");
-    this.lblStatus = document.getElementById('txtStatus').getElementsByTagName('textarea')[0];
-    console.log("HomePage: Ermittle Anzahl Datensätze");
-    this.dbService.getRecordcount().then(data => this.lblStatus.value = data);
-    if ( this.records == null ) {
-      this.lblStatus.value = "0";
-      console.log("Anzahl DSe: 0");
-    } else {
-      this.lblStatus.value = this.records.length.toString();
-      console.log("Anzahl DSe: " + this.records.length.toString());
-    }
-    */
   }
 
   zufall (min: number, max: number): number {

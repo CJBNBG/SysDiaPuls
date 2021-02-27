@@ -1,4 +1,3 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { Platform } from '@ionic/angular';
@@ -33,7 +32,7 @@ export class DbService {
             + 'Zeitpunkt DATETIME NOT NULL,'
             + 'Systole INTEGER NOT NULL,'
             + 'Diastole INTEGER NOT NULL,'
-            + 'Puls INTEGER NOT NULL,'
+            + 'Puls INTEGER NULL,'
             + 'Gewicht FLOAT NULL,'
             + 'Bemerkung TEXT NULL'
             + ')', [])

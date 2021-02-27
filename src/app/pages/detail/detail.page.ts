@@ -37,14 +37,14 @@ export class DetailPage implements OnInit {
     ctlPuls: new FormControl('', Validators.compose([
       //PulsValidator.validPuls,
       Validators.maxLength(3),
-      Validators.minLength(2),
-      Validators.pattern('[0-9]{2,3}'),
-      Validators.required
+      Validators.minLength(0),
+      Validators.pattern('[0-9]{2,3}')
+      // Validators.required
     ])),
     ctlGewicht: new FormControl('', Validators.compose([
       //GewichtValidator.validGewicht,
       Validators.maxLength(5),
-      Validators.minLength(1),
+      Validators.minLength(0),
       Validators.pattern('[0-9]{2,3}.[0-9]')
       // Validators.required
     ])),
@@ -73,20 +73,20 @@ export class DetailPage implements OnInit {
     ],
     'ctlPuls': [
       //{ type: 'validPuls', message: 'Der Wert muss zwischen 60 und 140 liegen.' },
-      { type: 'minlength', message: 'Der Wert muss mindestens 2 Stellen haben.' },
+      // { type: 'minlength', message: 'Der Wert muss mindestens 2 Stellen haben.' },
       { type: 'maxlength', message: 'Der Wert darf maximal 3 Stellen haben.' },
       { type: 'pattern', message: 'Es dürfen nur Zahlen eingegeben werden.' },
-      { type: 'required', message: 'Es ist ein Wert für den Puls erforderlich.' }
+      { type: 'required', message: 'Es ist kein Wert für den Puls erforderlich.' }
     ],
     'ctlGewicht': [
       //{ type: 'validGewicht', message: 'Der Wert muss positiv sein und darf nicht größer sein als 300.' },
-      { type: 'minlength', message: 'Der Wert muss mindestens 1 Stelle haben.' },
+      // { type: 'minlength', message: 'Der Wert muss mindestens 1 Stelle haben.' },
       { type: 'maxlength', message: 'Der Wert darf maximal 5 Stellen inkl. Komma haben.' },
       { type: 'pattern', message: 'Es dürfen nur Zahlen mit einer Nachkommastelle eingegeben werden.' },
       { type: 'required', message: 'Es ist kein Wert für das Gewicht erforderlich.' }
     ],
     'ctlBemerkung': [
-      { type: 'minlength', message: 'Eine Bemerkung muss mindestens 1 Zeichen lang sein.' },
+      // { type: 'minlength', message: 'Eine Bemerkung muss mindestens 1 Zeichen lang sein.' },
       { type: 'required', message: 'Eine Bemerkung ist nicht erforderlich.' }
     ]
   };
@@ -109,7 +109,7 @@ export class DetailPage implements OnInit {
       Systole: 120,
       Diastole: 80,
       Puls: 60,
-      Gewicht: null,
+      Gewicht: -1,
       Bemerkung: ""
     });
     console.log(JSON.stringify(this.thisRecord));
@@ -144,57 +144,65 @@ export class DetailPage implements OnInit {
 
     try {
       const val = await this.storage.get("ID");
-      this.thisRecord[0].pid = val
+      this.thisRecord[0].pid = val;
     } catch(e) {
-      console.log("Fehler ID " + e.message)
+      console.log("Fehler ID " + e.message);
     }
     console.log("DetailPage: ID: " + this.thisRecord[0].pid);
 
     try {
       const val = await this.storage.get("Zeitpunkt");
-      this.thisRecord[0].Zeitpunkt = val
+      this.thisRecord[0].Zeitpunkt = val;
     } catch(e) {
-      console.log("Fehler Zeitpunkt " + e.message)
+      console.log("Fehler Zeitpunkt " + e.message);
     }
     console.log("DetailPage: Zeitpunkt: " + this.thisRecord[0].Zeitpunkt);
 
     try {
       const val = await this.storage.get("Systole");
-      this.thisRecord[0].Systole = val
+      this.thisRecord[0].Systole = val;
     } catch(e) {
-      console.log("Fehler Systole " + e.message)
+      console.log("Fehler Systole " + e.message);
     }
     console.log("DetailPage: Systole: " + this.thisRecord[0].Systole);
 
     try {
       const val = await this.storage.get("Diastole");
-      this.thisRecord[0].Diastole = val
+      this.thisRecord[0].Diastole = val;
     } catch(e) {
-      console.log("Fehler Diastole " + e.message)
+      console.log("Fehler Diastole " + e.message);
     }
     console.log("DetailPage: Diastole: " + this.thisRecord[0].Diastole);
 
     try {
       const val = await this.storage.get("Puls");
-      this.thisRecord[0].Puls = val
+      if ( val == "" ) {
+        this.thisRecord[0].Puls = -1;
+      } else {
+        this.thisRecord[0].Puls = val;
+      }
     } catch(e) {
-      console.log("Fehler Puls " + e.message)
+      console.log("Fehler Puls " + e.message);
     }
     console.log("DetailPage: Puls: " + this.thisRecord[0].Puls);
 
     try {
       const val = await this.storage.get("Gewicht");
-      this.thisRecord[0].Gewicht = val
+      if ( val == "" ) {
+        this.thisRecord[0].Gewicht = -1;
+      } else {
+        this.thisRecord[0].Gewicht = val;
+      }
     } catch(e) {
-      console.log("Fehler Gewicht " + e.message)
+      console.log("Fehler Gewicht " + e.message);
     }
     console.log("DetailPage: Gewicht: " + this.thisRecord[0].Gewicht);
 
     try {
       const val = await this.storage.get("Bemerkung");
-      this.thisRecord[0].Bemerkung = val
+      this.thisRecord[0].Bemerkung = val;
     } catch(e) {
-      console.log("Fehler Bemerkung " + e.message)
+      console.log("Fehler Bemerkung " + e.message);
     }
     console.log("DetailPage: Bemerkung: " + this.thisRecord[0].Bemerkung);
   }
@@ -250,6 +258,13 @@ export class DetailPage implements OnInit {
   async PulsPlusMinus(op:string) {
     try {
       let w: any = await this.detailform.get('ctlPuls').value;
+      if ( w == "" || w == null ) {
+        if ( op === "+" ) {
+          w = "59.9";
+        } else {
+          w = "60.1";
+        }
+      }
       let Wert: number = parseInt(w.toString(), 10);
       if ( op === "+" ) {
         if ( Wert < 140 ) Wert += 1;
@@ -274,6 +289,13 @@ export class DetailPage implements OnInit {
   async GewichtPlusMinus(op:string) {
     try {
       let w: any = await this.detailform.get('ctlGewicht').value;
+      if ( w == "" || w == null ) {
+        if ( op === "+" ) {
+          w = "79.9";
+        } else {
+          w = "80.1";
+        }
+      }
       let Wert: number = Number.parseFloat(Number.parseFloat(w.toString()).toFixed(1));
       if ( op === "+" ) {
         if ( Wert < 300.0 ) Wert += 0.1;
@@ -306,12 +328,21 @@ export class DetailPage implements OnInit {
     try {
       let Wstr = this.thisRecord[0].Gewicht.toString();
       let Erg: string = Number.parseFloat(Wstr).toFixed(1);
-      if ( Erg.indexOf(".") === -1 ) Erg = Erg + ".0";
+      if ( this.thisRecord[0].Gewicht == -1 ) {
+        Erg = "";        
+      } else {
+        if ( Erg.indexOf(".") === -1 ) Erg = Erg + ".0";
+      }
+      let Wstr1 = this.thisRecord[0].Puls.toString();
+      let Erg1: string = parseInt(Wstr1.toString(), 10).toString();
+      if ( this.thisRecord[0].Puls == -1 ) {
+        Erg1 = "";        
+      } 
       this.detailform.setValue({
         ctlZeitpunkt: new Date(this.thisRecord[0].Zeitpunkt).toISOString(),
         ctlSystole: this.thisRecord[0].Systole.toString(),
         ctlDiastole: this.thisRecord[0].Diastole.toString(),
-        ctlPuls: this.thisRecord[0].Puls.toString(),
+        ctlPuls: Erg1,
         ctlGewicht: Erg,
         ctlBemerkung: this.thisRecord[0].Bemerkung
       });
@@ -321,8 +352,8 @@ export class DetailPage implements OnInit {
         ctlZeitpunkt: new Date().toISOString(),
         ctlDiastole: "80",
         ctlSystole: "120",
-        ctlPuls: "70",
-        ctlGewicht: "80.0",
+        ctlPuls: "",
+        ctlGewicht: "",
         ctlBemerkung: ""
       });
     }

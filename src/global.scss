@@ -26,72 +26,72 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 .optimal {
-    border-left: 0px solid green;
-    border-top: 0px solid green;
-    border-right: 0px solid green;
-    border-bottom: 3px solid green;
-    background-color: rgb(212, 238, 212);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid lightgreen;
+    background-color: rgb(207, 255, 207);
 }
 .normal {
-    border-left: 0px solid rgb(155, 255, 155);
-    border-top: 0px solid rgb(155, 255, 155);
-    border-right: 0px solid rgb(155, 255, 155);
-    border-bottom: 3px solid rgb(155, 255, 155);
-    background-color:  rgb(231, 253, 231);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid green;
+    background-color: rgb(164, 235, 164);
 }
 .hochnormal {
-    border-left: 0px solid rgb(221, 224, 70);
-    border-top: 0px solid rgb(221, 224, 70);
-    border-right: 0px solid rgb(221, 224, 70);
-    border-bottom: 3px solid rgb(221, 224, 70);
-    background-color:  rgb(245, 245, 227);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid yellow;
+    background-color: rgb(255, 255, 179);
 }
 .stufe1 {
-    border-left: 0px solid rgb(248, 134, 72);
-    border-top: 0px solid rgb(248, 134, 72);
-    border-right: 0px solid rgb(248, 134, 72);
-    border-bottom: 3px solid rgb(248, 134, 72);
-    background-color:  rgb(245, 231, 223);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid rgb(255, 186, 83);
+    background-color: rgb(245, 235, 223);
 }
 .stufe2 {
-    border-left: 0px solid rgb(255, 68, 68);
-    border-top: 0px solid rgb(255, 68, 68);
-    border-right: 0px solid rgb(255, 68, 68);
-    border-bottom: 3px solid rgb(255, 68, 68);
-    background-color:  rgb(255, 232, 232);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid rgb(255, 138, 138);
+    background-color: rgb(255, 235, 235);
 }
 .stufe3 {
-    border-left: 0px solid red;
-    border-top: 0px solid red;
-    border-right: 0px solid red;
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
     border-bottom: 3px solid red;
     background-color: rgb(255, 235, 235);
 }
-.puls_normal {
-    border-left: 0px solid green;
-    border-top: 0px solid green;
-    border-right: 0px solid green;
-    border-bottom: 3px solid green;
-    background-color: rgb(212, 238, 212);
-}
 .puls_langsam {
-    border-left: 0px solid aqua;
-    border-top: 0px solid aqua;
-    border-right: 0px solid aqua;
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
     border-bottom: 3px solid aqua;
     background-color: rgb(235, 255, 255);
 }
+.puls_normal {
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid green;
+    background-color: rgb(164, 235, 164);
+}
 .puls_schnell {
-    border-left: 0px solid lightcoral;
-    border-top: 0px solid lightcoral;
-    border-right: 0px solid lightcoral;
-    border-bottom: 3px solid lightcoral;
-    background-color: rgb(240, 224, 224);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid red;
+    background-color: rgb(255, 235, 235);
 }
 .gew_normal {
-    border-left: 0px solid lightgreen;
-    border-top: 0px solid lightgreen;
-    border-right: 0px solid lightgreen;
-    border-bottom: 3px solid lightgreen;
-    background-color: rgb(222, 236, 222);
+    border-left: 0px solid;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-bottom: 3px solid green;
+    background-color: rgb(164, 235, 164);
 }
