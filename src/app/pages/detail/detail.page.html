@@ -50,7 +50,7 @@
                 <div *ngIf="detailform.get('ctlZeitpunkt').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
 
                 <!-- Systole -->
-                <ion-item lines="none" style="width: 100%;">
+                <ion-item lines="none" style="width: 100%; border: 0pt;">
                   <table class="myDetailGroup">
                     <thead>
                       <tr>
@@ -83,7 +83,7 @@
                 </ion-item>
 
                 <!-- Diastole -->
-                <ion-item lines="none" style="width: 100%;">
+                <ion-item lines="none" style="width: 100%; border: 0pt;">
                   <table class="myDetailGroup">
                     <thead>
                       <tr>
@@ -116,7 +116,7 @@
                 </ion-item>
 
                 <!-- Puls -->
-                <ion-item lines="none" style="width: 100%;">
+                <ion-item lines="none" style="width: 100%; border: 0pt;">
                   <table class="myDetailGroup">
                     <thead>
                       <tr>
@@ -129,7 +129,8 @@
                     <tbody>
                       <tr>
                         <td>
-                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord[0])">Puls: (Schl./Min.)</ion-text>
+                          <ion-text (click)="togglePuls()" [ngClass]="myBezeichnungFormat(thisRecord[0])">Puls: (Schl./Min.)</ion-text><br/>
+                          <div style="font-size: xx-small;">zum L&ouml;schen hier klicken</div>
                         </td>
                         <td style="background-color:#c6ebfc;" >
                           <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="PulsPlusMinus('-')">-</ion-button>
@@ -149,7 +150,7 @@
                 </ion-item>
 
                 <!-- Gewicht -->
-                <ion-item lines="none" style="width: 100%;">
+                <ion-item lines="none" style="width: 100%; border: 0pt;">
                   <table class="myDetailGroup">
                     <thead>
                       <tr>
@@ -162,7 +163,8 @@
                     <tbody>
                       <tr>
                         <td>
-                          <ion-text [ngClass]="myBezeichnungFormat(thisRecord[0])">Gewicht: (kg)</ion-text>
+                          <ion-text (click)="toggleGewicht()" [ngClass]="myBezeichnungFormat(thisRecord[0])">Gewicht: (kg)</ion-text><br/>
+                          <div style="font-size: xx-small;">zum L&ouml;schen hier klicken</div>
                         </td>
                         <td style="background-color:#c6ebfc;" >
                           <ion-button fill="outline" style="background-color:#c6ebfc;" (click)="GewichtPlusMinus('-')">-</ion-button>

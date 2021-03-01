@@ -99,7 +99,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr (click)="AnzeigeDetails(record)">
+                  <tr>
                     <!-- erste Spalte row-Zeitpunkt -->
                     <td>
                       <ion-text [ngClass]="myZeitpunktFormat(record)">
@@ -128,7 +128,7 @@
                     </td>     
                     <!-- dritte Spalte row-Button -->
                     <td>
-                      <ion-button>
+                      <ion-button (click)="presentAlertConfirm(record)">
                         <ion-icon name="trash-outline"></ion-icon>
                       </ion-button>
                     </td>

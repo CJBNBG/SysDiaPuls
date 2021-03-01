@@ -116,6 +116,16 @@ export class DetailPage implements OnInit {
     this.init();
   }
 
+  async togglePuls() {
+    this.thisRecord[0].Puls = -1;
+    this.setAllValues();
+}
+
+  toggleGewicht() {
+    this.thisRecord[0].Gewicht = -1;
+    this.setAllValues();
+  }
+
   async init() {
     await this.getData();
     await this.setAllValues();
