@@ -34,7 +34,7 @@
     "cordova-android": "9.0.0",
     "help": "^3.0.2",
     "ionic-angular": "^3.9.10",
-    "rxjs": "~6.6.3",
+    "rxjs": "~6.6.6",
     "tslib": "^2.0.3",
     "zone.js": "~0.10.3"
   },
