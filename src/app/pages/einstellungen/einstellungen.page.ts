@@ -18,6 +18,12 @@ export class EinstellungenPage implements OnInit {
     this.router.navigate(this.thePath);
   }
 
+  AnzeigeImportExport() {
+    this.thePath = ['importexport'];
+    console.log('Aufruf - ' + this.thePath);
+    this.router.navigate(this.thePath);
+  }
+
   ngOnInit() {
   }
 

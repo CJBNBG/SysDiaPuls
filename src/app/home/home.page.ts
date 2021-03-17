@@ -14,6 +14,7 @@ export class HomePage {
   lblStatus: any;
   thePath: any;
   records: DataInterface[] = [];
+  rec_count: number = 0;
 
   constructor(
     private router: Router,
@@ -21,6 +22,16 @@ export class HomePage {
     public alertController: AlertController,
   ) {
 
+  }
+
+  async doInit() {
+    this.rec_count = await this.dbService.getRecordcount();
+  }
+
+  ngOnInit() {
+    console.log("TabellePage: ngOnInit");
+    this.records = [];
+    this.doInit();
   }
 
   ionViewWillLeave() {

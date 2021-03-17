@@ -11,10 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'einstellungen',
-  //   loadChildren: () => import('./pages/einstellungen/einstellungen.module').then( m => m.EinstellungenPageModule)
-  // },
+  {
+    path: 'einstellungen',
+    loadChildren: () => import('./pages/einstellungen/einstellungen.module').then( m => m.EinstellungenPageModule)
+  },
   {
     path: 'ueber',
     loadChildren: () => import('./pages/ueber/ueber.module').then( m => m.UeberPageModule)
@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'detail',
     loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
+  },  {
+    path: 'importexport',
+    loadChildren: () => import('./pages/importexport/importexport.module').then( m => m.ImportexportPageModule)
   }
+
 ];
 
 @NgModule({

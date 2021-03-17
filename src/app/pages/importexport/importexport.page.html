@@ -1,0 +1,42 @@
+<!-- Kopfzeilenbereich -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Import / Export</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Hauptbereich der Seite -->
+<ion-content  [fullscreen]="true" class="ion-padding">
+  <ion-button (click)="doExportDb()">Datenbank exportieren</ion-button>
+  <ion-button (click)="doImportDb()">Datenbank importieren</ion-button>
+  ----------------------------------
+  <ion-button (click)="mkdir()">Ordner secrets erzeugen</ion-button>
+  <ion-button (click)="rmdir()">Ordner secrets löschen</ion-button>
+  <ion-button (click)="fileWrite()">Datei text.txt erzeugen</ion-button>
+  <ion-button (click)="fileRead()">Datei text.txt einlesen</ion-button>
+  <ion-button (click)="fileAppend()">Datei text.txt ergänzen</ion-button>
+  <ion-button (click)="fileDelete()">Datei text.txt löschen</ion-button>
+</ion-content>
+
+<!-- Fußzeilenbereich -->
+<!-- <ion-footer class="ion-no-border">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="end">
+      <ion-button (click)="AnzeigeImportExport()">
+        <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer> -->

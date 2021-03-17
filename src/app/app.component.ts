@@ -18,7 +18,7 @@ export class AppComponent {
   // die Einträge dieser Liste erscheinen als Auswahl im Menü in dieser Reihenfolge
   public appPages = [
     {
-      title: 'Tabelle',
+      title: 'Einträge ansehen',
       url: '/tabelle',
       icon: 'document-text'
     },
@@ -27,11 +27,16 @@ export class AppComponent {
     //   url: '/diagramm',
     //   icon: 'trending-up'
     // },
-    // {
-    //   title: 'Einstellungen',
-    //   url: '/einstellungen',
-    //   icon: 'settings'
-    // },
+    {
+      title: 'Einstellungen',
+      url: '/einstellungen',
+      icon: 'settings'
+    },
+    {
+      title: 'Import / Export',
+      url: '/importexport',
+      icon: 'swap-vertical'
+    },
     {
       title: 'Über diese App',
       url: '/ueber',
