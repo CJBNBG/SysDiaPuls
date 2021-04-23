@@ -1,8 +1,7 @@
 {
   "name": "SysDiaPuls",
   "integrations": {
-    "cordova": {},
-    "capacitor": {}
+    "cordova": {}
   },
   "type": "angular"
 }

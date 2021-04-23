@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Platform } from '@ionic/angular';
 
 export interface DataInterface {
@@ -22,7 +23,10 @@ export class DbService {
 
   private dbInstance: SQLiteObject = null;
  
-  constructor(private pltfrm: Platform, private sqlite: SQLite) {
+  constructor(private pltfrm: Platform, 
+              private sqlite: SQLite,
+              private sqlitePorter: SQLitePorter
+              ) {
     this.pltfrm.ready().then(() => {
       this.sqlite.create({ name: 'SysDiaPuls.db', location: 'default' }).then(
         (db: SQLiteObject) => {
@@ -208,5 +212,50 @@ export class DbService {
   public leftpad(val, resultLength = 2, leftpadChar = '0'): string {
     return (String(leftpadChar).repeat(resultLength)
           + String(val)).slice(String(val).length);
+  }
+
+  /**
+  * @public
+  * @method exportAsSQL
+  * @description          Exports SQL data from the application database
+  * @return {Promise}
+  */
+  public exportAsSQL(): Promise<number>
+  {
+    return new Promise((resolve, reject) =>
+    {
+      this.sqlitePorter.exportDbToSql(this.dbInstance)
+      .then((data) =>
+      {
+          resolve(data);
+      })
+      .catch((e) =>
+      {
+          reject(e);
+          console.log('exportDbToSql-Fehler: ' + JSON.stringify(e));
+      });
+    });
+  }
+
+  /**
+  * @public
+  * @method importAsSQL
+  * @description          Imports SQL data into the application database
+  * @return {Promise}
+  */
+  public importAsSQL(sqldata: string): Promise<any>
+  {
+    return new Promise((resolve, reject) => {
+      this.sqlitePorter.importSqlToDb(this.dbInstance, sqldata)
+      .then((data) =>
+      {
+        resolve(data);
+      })
+      .catch((e) =>
+      {
+        reject(e);
+        console.log('importSqlToDb-Fehler: ' + JSON.stringify(e));
+      });
+    });
   }
 }

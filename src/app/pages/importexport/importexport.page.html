@@ -18,25 +18,62 @@
 </ion-header>
 
 <!-- Hauptbereich der Seite -->
-<ion-content  [fullscreen]="true" class="ion-padding">
-  <ion-button (click)="doExportDb()">Datenbank exportieren</ion-button>
-  <ion-button (click)="doImportDb()">Datenbank importieren</ion-button>
-  ----------------------------------
-  <ion-button (click)="mkdir()">Ordner secrets erzeugen</ion-button>
-  <ion-button (click)="rmdir()">Ordner secrets löschen</ion-button>
-  <ion-button (click)="fileWrite()">Datei text.txt erzeugen</ion-button>
-  <ion-button (click)="fileRead()">Datei text.txt einlesen</ion-button>
-  <ion-button (click)="fileAppend()">Datei text.txt ergänzen</ion-button>
-  <ion-button (click)="fileDelete()">Datei text.txt löschen</ion-button>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-text color="medium" *ngIf="directories.length == 0" class="ion-padding ion-text-center">
+    <p>keine Exportdateien vorhanden</p>
+  </ion-text>
+  <!-- <ion-button (click)="doExportDb()">Datenbank exportieren</ion-button>
+  <ion-button (click)="doImportDb()">Datenbank importieren</ion-button> -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let f of directories">
+      <ion-item>
+        <ion-icon name="folder" slot="start" *ngIf="f.isDirectory"></ion-icon>
+        <ion-icon name="heart-half-outline" slot="start" *ngIf="f.name.toLowerCase().endsWith('.sql')"></ion-icon>
+        <ion-icon name="document" slot="start" *ngIf="!f.name.toLowerCase().endsWith('.sql')"></ion-icon>
+        <ion-label text-wrap>
+          {{ f.name }}
+          <p>{{ f.fullPath }}</p>
+        </ion-label>
+      </ion-item>
+ 
+      <ion-item-options side="end" *ngIf="!f.isDirectory">
+        <ion-item-option (click)="entferneDatei(f)" color="danger">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+ 
+      <ion-item-options side="start" *ngIf="!f.isDirectory">
+        <ion-item-option (click)="doTheImport(f)" color="success">
+          <ion-icon name="arrow-down-outline" slot="end"></ion-icon>Importieren
+        </ion-item-option>
+      </ion-item-options>
+ 
+    </ion-item-sliding>
+    <ion-textarea readonly id="txtMeldung"></ion-textarea>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-up-outline" (click)="doExportDb()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- ----------------------------------
+  <ion-button (click)="mkdir()">Ordner SysDiaPuls erzeugen</ion-button>
+  <ion-button (click)="rmdir()">Ordner SysDiaPuls löschen</ion-button>
+  <ion-button (click)="fileWrite()">Datei SysDiaPuls.txt erzeugen</ion-button>
+  <ion-button (click)="fileRead()">Datei SysDiaPuls.txt einlesen</ion-button>
+  <ion-button (click)="fileAppend()">Datei SysDiaPuls.txt ergänzen</ion-button>
+  <ion-button (click)="fileDelete()">Datei SysDiaPuls.txt löschen</ion-button> -->
 </ion-content>
 
 <!-- Fußzeilenbereich -->
-<!-- <ion-footer class="ion-no-border">
-  <ion-toolbar color="secondary">
-    <ion-buttons slot="end">
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="ion-text-center" color="secondary">
+    <ion-label><ion-icon name="arrow-back-outline" slot="start"></ion-icon>nach links schieben um zu l&ouml;schen</ion-label>
+    <ion-label> | nach rechts schieben um zu importieren<ion-icon name="arrow-forward-outline" slot="end"></ion-icon></ion-label>
+      <!-- <ion-buttons slot="end">
       <ion-button (click)="AnzeigeImportExport()">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
-</ion-footer> -->
+</ion-footer>
