@@ -19,20 +19,20 @@
 
 <!-- Hauptbereich der Seite -->
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-text color="medium" *ngIf="directories.length == 0" class="ion-padding ion-text-center">
+  <ion-text color="medium" *ngIf="sortierteDateiliste.length == 0" class="ion-padding ion-text-center">
     <p>keine Exportdateien vorhanden</p>
   </ion-text>
   <!-- <ion-button (click)="doExportDb()">Datenbank exportieren</ion-button>
   <ion-button (click)="doImportDb()">Datenbank importieren</ion-button> -->
   <ion-list>
-    <ion-item-sliding *ngFor="let f of directories">
+    <ion-item-sliding *ngFor="let f of sortierteDateiliste">
       <ion-item>
         <ion-icon name="folder" slot="start" *ngIf="f.isDirectory"></ion-icon>
         <ion-icon name="heart-half-outline" slot="start" *ngIf="f.name.toLowerCase().endsWith('.sql')"></ion-icon>
         <ion-icon name="document" slot="start" *ngIf="!f.name.toLowerCase().endsWith('.sql')"></ion-icon>
         <ion-label text-wrap>
-          {{ f.name }}
-          <p>{{ f.fullPath }}</p>
+          {{ zeigeNameDerDatei(f.name) }}
+          <p>{{ zeigeDatumDerDatei(f.name) }}</p>
         </ion-label>
       </ion-item>
  
@@ -68,8 +68,8 @@
 <!-- Fußzeilenbereich -->
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center" color="secondary">
-    <ion-label><ion-icon name="arrow-back-outline" slot="start"></ion-icon>nach links schieben um zu l&ouml;schen</ion-label>
-    <ion-label> | nach rechts schieben um zu importieren<ion-icon name="arrow-forward-outline" slot="end"></ion-icon></ion-label>
+    <ion-label><ion-icon name="arrow-back-outline" slot="start"></ion-icon>l&ouml;schen</ion-label>
+    <ion-label> | importieren<ion-icon name="arrow-forward-outline" slot="end"></ion-icon></ion-label>
       <!-- <ion-buttons slot="end">
       <ion-button (click)="AnzeigeImportExport()">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
