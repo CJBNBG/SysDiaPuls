@@ -18,7 +18,7 @@
 </ion-header>
 
 <!-- Hauptbereich der Seite -->
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="false" class="ion-padding">
   <ion-text color="medium" *ngIf="sortierteDateiliste.length == 0" class="ion-padding ion-text-center">
     <p>keine Exportdateien vorhanden</p>
   </ion-text>
@@ -53,7 +53,7 @@
   </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="arrow-up-outline" (click)="doExportDb()"></ion-icon>
+      <ion-icon name="add" (click)="doExportDb()"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <!-- ----------------------------------
@@ -68,8 +68,9 @@
 <!-- Fußzeilenbereich -->
 <ion-footer class="ion-no-border">
   <ion-toolbar class="ion-text-center" color="secondary">
-    <ion-label><ion-icon name="arrow-back-outline" slot="start"></ion-icon>l&ouml;schen</ion-label>
-    <ion-label> | importieren<ion-icon name="arrow-forward-outline" slot="end"></ion-icon></ion-label>
+    <ion-text class="ion-padding ion-text-center">Ablageort: {{exportPfad}}</ion-text>
+    <!-- <ion-label><ion-icon name="arrow-back-outline" slot="start"></ion-icon>l&ouml;schen</ion-label> -->
+    <!-- <ion-label> | importieren<ion-icon name="arrow-forward-outline" slot="end"></ion-icon></ion-label> -->
       <!-- <ion-buttons slot="end">
       <ion-button (click)="AnzeigeImportExport()">
         <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>

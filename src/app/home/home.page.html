@@ -37,8 +37,33 @@
             <ion-card-title mode="md">Gesundheitsdaten</ion-card-title>     <!-- mode="md" stellt sicher, dass das Wort auf beiden Plattformen lesbar ist -->
           </ion-card-header>
           <ion-card-content>
-            Mit dieser App können Sie folgende Gesundheitsdaten erfassen:
-            <br /><br /><h2>Blutdruck (Systole und Diastole)<br />Puls<br />Gewicht</h2>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="8">ber&uuml;cksichtigte Eintr&auml;ge:</ion-col>
+                <ion-col size="4">
+                  <div class="ion-text-end">{{rec_count}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-justify-content-start">
+                <ion-col size="7">Systole:</ion-col>
+                <ion-col size="5">
+                  <div class="ion-text-end">{{avgSys}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-justify-content-start">
+                <ion-col size="7">Diastole:</ion-col>
+                <ion-col size="5">
+                  <div class="ion-text-end">{{avgDia}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-justify-content-start">
+                <ion-col size="7">Puls:</ion-col>
+                <ion-col size="5">
+                  <div class="ion-text-end">{{avgPuls}}</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            bei diesen Angaben handelt es sich um Mittelwerte der letzten 7 Tage
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -53,7 +78,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="AnzeigeTabelle()">Eintr&auml;ge
         <ion-icon slot="start" name="document-text-outline"></ion-icon>
-        <!-- <ion-badge>{{rec_count}}</ion-badge> -->
+        <ion-badge slot="end">{{rec_count_total}}</ion-badge>
       </ion-button>
     </ion-buttons>
     <!-- <ion-buttons slot="end">

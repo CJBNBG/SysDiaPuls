@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Platform } from '@ionic/angular';
+import * as delay from 'delay';
+import { taggedTemplate } from '@angular/compiler/src/output/output_ast';
 
 export interface DataInterface {
   Jetzt: string;
@@ -21,7 +23,7 @@ export interface DataInterface {
 
 export class DbService {
 
-  private dbInstance: SQLiteObject = null;
+  public dbInstance: SQLiteObject = null;
  
   constructor(private pltfrm: Platform, 
               private sqlite: SQLite,
@@ -47,6 +49,21 @@ export class DbService {
         console.log(e);
       });
     });
+  }
+
+  public dbIsReady(): boolean {
+    if ( this.dbInstance === null ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async waitForDbToBeOpen() {
+    while (this.dbIsReady() === false ) {
+      console.log("waiting for DB to open...");
+      await delay(100);                     // 100 ms
+    }
   }
 
   async getAllRecords() {
@@ -88,24 +105,146 @@ export class DbService {
     }
   }
  
-  async getRecordcount(): Promise<number> {
+  async getRecordcount(zeitraum: string): Promise<string> {
+    let retVal: string = 'keine Daten';
+    let data = [];
+    let sqlcmd: string = 'SELECT COUNT(*) AS cnt FROM tDaten';
+    if ( zeitraum !== 'alle' ) {
+      let Jetzt = new Date();
+      let Tag = Jetzt.getDate();
+      let Monat = Jetzt.getMonth();
+      let Jahr = Jetzt.getFullYear();
+      let Zeitoffset = parseInt(zeitraum,10);
+      let Zeit2 = new Date(Jahr, Monat, Tag + Zeitoffset);
+      // console.log('Jetzt: ' + Jetzt.toISOString() );
+      // console.log('Zeit2: ' + Zeit2.toISOString());
+      if ( Zeitoffset > 0 ) {
+        data = [Jetzt.toISOString(), Zeit2.toISOString()];
+      } else {
+        data = [Zeit2.toISOString(), Jetzt.toISOString()];
+      }
+      sqlcmd += " where Zeitpunkt BETWEEN ?";
+      sqlcmd += " AND ?";
+    }
     if ( this.dbInstance === null ) {
       console.log("getRecordcount: Datenbank ist geschlossen");
-      return -1;
     } else {
-      let retVal: number = -1;
-      await this.dbInstance.executeSql('SELECT COUNT(*) AS cnt FROM tDaten', []).then(
+      await this.dbInstance.executeSql(sqlcmd, data).then(
         (res) => {
-          console.log('cnt=' + res.rows.item(0).cnt);
-          retVal = parseInt(res.rows.item(0).cnt, 10);
+          // console.log('cnt=' + res.rows.item(0).cnt);
+          let erg: number = res.rows.item(0).cnt;
+          if ( erg === null ) {
+            retVal = '-1';
+          } else {
+            retVal = parseInt(res.rows.item(0).cnt, 10).toString();
+          }
         }
       ).catch(e => {
-        console.log("Recordcount Fehler - " + e);
+        console.log("getRecordcount: Fehler - " + e);
       });
-    console.log('retVal: ' + retVal);
+      // console.log('retVal: ' + retVal);
+    }
     return retVal;
   }
-}
+ 
+  async getAVGSystole(zeitraum: string): Promise<string> {
+    let retVal: string = 'keine Daten';
+    let data = [];
+    let sqlcmd: string = 'SELECT AVG(Systole) AS erg FROM tDaten';
+    if ( zeitraum !== 'alle' ) {
+      let Jetzt = new Date();
+      let Tag = Jetzt.getDate();
+      let Monat = Jetzt.getMonth();
+      let Jahr = Jetzt.getFullYear();
+      let Zeitoffset = parseInt(zeitraum,10);
+      let Zeit2 = new Date(Jahr, Monat, Tag + Zeitoffset);
+      if ( Zeitoffset > 0 ) {
+        data = [Jetzt.toISOString(), Zeit2.toISOString()];
+      } else {
+        data = [Zeit2.toISOString(), Jetzt.toISOString()];
+      }
+      sqlcmd += " where Zeitpunkt BETWEEN ?";
+      sqlcmd += " AND ?";
+    }
+    if ( this.dbInstance === null ) {
+      console.log("getAVGSystole: Datenbank ist geschlossen");
+    } else {
+      await this.dbInstance.executeSql(sqlcmd, data).then(
+        (res) => {
+          retVal = Number.parseFloat(res.rows.item(0).erg.toString()).toFixed(1) + ' mmHg';
+        }
+      ).catch(e => {
+        console.log("getAVGSystole: Fehler - " + e);
+      });
+    }
+    return retVal;
+  }
+ 
+  async getAVGDiastole(zeitraum: string): Promise<string> {
+    let retVal: string = 'keine Daten';
+    let data = [];
+    let sqlcmd: string = 'SELECT AVG(Diastole) AS erg FROM tDaten';
+    if ( zeitraum !== 'alle' ) {
+      let Jetzt = new Date();
+      let Tag = Jetzt.getDate();
+      let Monat = Jetzt.getMonth();
+      let Jahr = Jetzt.getFullYear();
+      let Zeitoffset = parseInt(zeitraum,10);
+      let Zeit2 = new Date(Jahr, Monat, Tag + Zeitoffset);
+      if ( Zeitoffset > 0 ) {
+        data = [Jetzt.toISOString(), Zeit2.toISOString()];
+      } else {
+        data = [Zeit2.toISOString(), Jetzt.toISOString()];
+      }
+      sqlcmd += " where Zeitpunkt BETWEEN ?";
+      sqlcmd += " AND ?";
+    }
+    if ( this.dbInstance === null ) {
+      console.log("getAVGDiastole: Datenbank ist geschlossen");
+    } else {
+      await this.dbInstance.executeSql(sqlcmd, data).then(
+        (res) => {
+          retVal = Number.parseFloat(res.rows.item(0).erg.toString()).toFixed(1) + ' mmHg';
+        }
+      ).catch(e => {
+        console.log("getAVGDiastole: Fehler - " + e);
+      });
+    }
+    return retVal;
+  }
+ 
+  async getAVGPuls(zeitraum: string): Promise<string> {
+    let retVal: string = 'keine Daten';
+    let data = [];
+    let sqlcmd: string = 'SELECT AVG(Puls) AS erg FROM tDaten';
+    if ( zeitraum !== 'alle' ) {
+      let Jetzt = new Date();
+      let Tag = Jetzt.getDate();
+      let Monat = Jetzt.getMonth();
+      let Jahr = Jetzt.getFullYear();
+      let Zeitoffset = parseInt(zeitraum,10);
+      let Zeit2 = new Date(Jahr, Monat, Tag + Zeitoffset);
+      if ( Zeitoffset > 0 ) {
+        data = [Jetzt.toISOString(), Zeit2.toISOString()];
+      } else {
+        data = [Zeit2.toISOString(), Jetzt.toISOString()];
+      }
+      sqlcmd += " where Zeitpunkt BETWEEN ?";
+      sqlcmd += " AND ?";
+    }
+    if ( this.dbInstance === null ) {
+      console.log("getAVGPuls: Datenbank ist geschlossen");
+    } else {
+      await this.dbInstance.executeSql(sqlcmd, data).then(
+        (res) => {
+          retVal = Number.parseFloat(res.rows.item(0).erg.toString()).toFixed(1) + ' bps';
+        }
+      ).catch(e => {
+        console.log("getAVGPuls: Fehler - " + e);
+      });
+    }
+    return retVal;
+  }
  
   async addKomplett(Zeitpunkt: string, Systole: number, Diastole: number, Puls: number, Gewicht: number, Bemerkung: string) {
     await this.dbInstance.executeSql('INSERT INTO tDaten(Zeitpunkt,Systole,Diastole,Puls,Gewicht,Bemerkung) VALUES(?,?,?,?,?,?)', [Zeitpunkt,Systole,Diastole,Puls,Gewicht,Bemerkung])

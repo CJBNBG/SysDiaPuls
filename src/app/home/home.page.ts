@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DbService, DataInterface } from '../services/db.service';
 import { AlertController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
+import * as delay from 'delay';
 
 @Component({
   selector: 'app-home',
@@ -14,22 +16,43 @@ export class HomePage {
   lblStatus: any;
   thePath: any;
   records: DataInterface[] = [];
-  rec_count: number = 0;
+  rec_count: string = '0';
+  rec_count_total: string = '0';
+  avgSys: string = 'init';
+  avgDia: string = 'init';
+  avgPuls: string = 'init';
 
   constructor(
     private router: Router,
     private dbService: DbService,
     public alertController: AlertController,
+    private pltfrm: Platform
   ) {
 
   }
 
   async doInit() {
-    this.rec_count = await this.dbService.getRecordcount();
+      while (this.dbService.dbInstance === null ) {
+        console.log("waiting for DB to open...");
+        await delay(100);                     // 100 ms
+      }
+      await this.doLeseWerte();
+  }
+
+  async doLeseWerte() {
+    this.avgSys = await this.dbService.getAVGSystole('-7');
+    this.avgDia = await this.dbService.getAVGDiastole('-7');
+    this.avgPuls = await this.dbService.getAVGPuls('-7');
+    this.rec_count = await this.dbService.getRecordcount('-7');
+    this.rec_count_total = await this.dbService.getRecordcount('alle');
+  }
+
+  ngAfterViewInit() {
+    console.log("HomePage: ngAfterViewInit");
   }
 
   ngOnInit() {
-    console.log("TabellePage: ngOnInit");
+    console.log("HomePage: ngOnInit");
     this.records = [];
     this.doInit();
   }
@@ -56,6 +79,7 @@ export class HomePage {
 
   ionViewDidEnter() {
     console.log("HomePage: ionViewDidEnter");
+    this.doInit();
     this.dbService.getAllRecords().then(data => this.records = data);
   }
 
@@ -98,13 +122,18 @@ export class HomePage {
         }, {
           text: 'Nur Löschen',
           handler: () => {
-            this.dbService.deleteAllRecords();
+            this.LoescheDaten();
             console.log('Datensätze löschen');
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  async LoescheDaten() {
+    await this.dbService.deleteAllRecords();
+    await this.doLeseWerte();
   }
 
   async ErgaenzeTestdaten() {
@@ -133,6 +162,7 @@ export class HomePage {
                                 ,"Testeintrag");
       console.log("Zeitpunkt: " + this.dbService.dateFormatted(tag_und_zeit));
     }
+    await this.doLeseWerte();
     console.log("Testdaten erzeugt");
   }
 

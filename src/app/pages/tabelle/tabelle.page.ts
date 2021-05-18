@@ -15,7 +15,7 @@ export class TabellePage implements OnInit {
 
   lblStatus: any;
   thePath: any;
-  rec_count: number;
+  rec_count: string;
   records: DataInterface[] = null;
   myWidth: number = 0;
   myHeight: number = 0;
@@ -238,15 +238,15 @@ export class TabellePage implements OnInit {
 
   async doInit() {
     this.records = await this.dbService.getAllRecords();
-    this.rec_count = await this.dbService.getRecordcount();
+    this.rec_count = await this.dbService.getRecordcount('alle');
 
     this.lblStatus = document.getElementById('txtAnzDSe').getElementsByTagName('textarea')[0];
-    if ( this.rec_count === 0 ) {
-      this.lblStatus.value = "keine Einträge";
-    } else if ( this.rec_count === 1 ) {
-      this.lblStatus.value = JSON.stringify(this.rec_count) + " Eintrag";
+    if ( this.rec_count === '0' ) {
+      this.lblStatus.value = 'keine Einträge';
+    } else if ( this.rec_count === '1' ) {
+      this.lblStatus.value = this.rec_count + ' Eintrag';
     } else {
-      this.lblStatus.value = JSON.stringify(this.rec_count) + " Einträge";
+      this.lblStatus.value = this.rec_count + ' Einträge';
     }
   }
 

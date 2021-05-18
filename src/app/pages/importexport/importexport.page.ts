@@ -36,6 +36,7 @@ export class ImportexportPage implements OnInit {
   intDBVersion: string = '1';
   lblMeldung: any;
   sortierteDateiliste: any = [];
+  exportPfad: string = '';
   // sortierteDateiliste: Array<myType[]> = new Array();
   // metaDaten: string = '';
   thePath: any;
@@ -123,6 +124,7 @@ export class ImportexportPage implements OnInit {
           // console.log('Verzeichnis SysDiaPuls existiert');
           this.file.listDir(this.file.externalApplicationStorageDirectory, 'files')
           .then(res => {
+            this.exportPfad = this.file.externalApplicationStorageDirectory + 'files';
             this.sortierteDateiliste = res.sort(function(a,b) {
               if ( a.name < b.name ) { return 1; }
               if ( a.name > b.name ) { return -1; }
