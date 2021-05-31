@@ -14,6 +14,7 @@ import { Platform } from '@ionic/angular';
 export class TabellePage implements OnInit {
 
   lblStatus: any;
+  txtButtontext: string = ':-)';
   thePath: any;
   rec_count: string;
   records: DataInterface[] = null;
@@ -139,7 +140,7 @@ export class TabellePage implements OnInit {
   ionViewWillEnter() {
     console.log("TabellePage: ionViewWillEnter");
     this.records = [];
-    this.doInit();
+    this.doInit100();
   }
 
   ionViewDidLeave() {
@@ -222,7 +223,7 @@ export class TabellePage implements OnInit {
   async EntferneDetails(rec: DataInterface) {
     await this.dbService.deleteRecord(rec.pid);
     this.records = [];
-    this.doInit();
+    this.doInit100();
   }
 
   async AnzeigeNeu() {
@@ -236,9 +237,29 @@ export class TabellePage implements OnInit {
     await this.router.navigate(['./detail']);
   }
 
-  async doInit() {
-    this.records = await this.dbService.getAllRecords();
-    this.rec_count = await this.dbService.getRecordcount('alle');
+  async doButton() {
+    this.lblStatus = document.getElementById('txtAnzDSe').getElementsByTagName('textarea')[0];
+    if ( this.txtButtontext === 'alle anzeigen' ) {
+      this.records = await this.dbService.getAllRecords();
+      this.txtButtontext = "letzte 100 anzeigen"
+     } else {
+      this.records = await this.dbService.get100Records();
+      this.txtButtontext = "alle anzeigen"
+     }
+     this.rec_count = this.records.length.toString();
+     if ( this.rec_count === '0' ) {
+      this.lblStatus.value = 'keine Einträge';
+    } else if ( this.rec_count === '1' ) {
+      this.lblStatus.value = this.rec_count + ' Eintrag';
+    } else {
+      this.lblStatus.value = this.rec_count + ' Einträge';
+    }
+  }
+
+  async doInit100() {
+    this.txtButtontext = "alle anzeigen"
+    this.records = await this.dbService.get100Records();
+    this.rec_count = this.records.length.toString();
 
     this.lblStatus = document.getElementById('txtAnzDSe').getElementsByTagName('textarea')[0];
     if ( this.rec_count === '0' ) {
@@ -253,6 +274,6 @@ export class TabellePage implements OnInit {
   ngOnInit() {
     console.log("TabellePage: ngOnInit");
     this.records = [];
-    this.doInit();
+    this.doInit100();
   }
 }

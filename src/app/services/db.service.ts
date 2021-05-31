@@ -79,6 +79,19 @@ export class DbService {
     return theData;
   }
  
+  async get100Records() {
+    let theData: DataInterface[] = [];
+    await this.dbInstance.executeSql("SELECT strftime('%H:%M %Y-%m-%d', datetime('now')) AS Jetzt, strftime('%d.%m.%Y\n%H:%M', Zeitpunkt) AS dt_formatiert,* FROM tDaten ORDER BY datetime(Zeitpunkt) DESC LIMIT 100", []).then(
+      (res) => {
+        for(var x=0; x<res.rows.length; x++)
+          theData.push(res.rows.item(x));
+      }
+    ).catch(e => {
+      console.log(e);
+    });
+    return theData;
+  }
+ 
   async getRecord(id: number) {
     if ( this.dbInstance === null ) {
       console.log("getRecord: Datenbank ist geschlossen");
