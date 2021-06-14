@@ -131,6 +131,10 @@
   @extend .row-Bemerkung;
   font-size: larger;
 }
+.row-Bemerkung_xlarge {
+  @extend .row-Bemerkung;
+  font-size: x-large;
+}
 
 ion-content {
   .error-message

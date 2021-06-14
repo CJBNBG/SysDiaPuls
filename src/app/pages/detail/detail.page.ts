@@ -19,6 +19,9 @@ export class DetailPage implements OnInit {
   myHeight: number = 0;
 
   detailform = new FormGroup({
+    ctlID: new FormControl('', Validators.compose([
+      Validators.minLength(1)
+    ])),
     ctlZeitpunkt: new FormControl('', Validators.compose([
       Validators.required
     ])),
@@ -56,6 +59,9 @@ export class DetailPage implements OnInit {
   });
 
   validation_messages = {
+    'ctlID': [
+      { type: 'minlength', message: 'Es ist ein Wert für die ID erforderlich.' }
+    ],
     'ctlZeitpunkt': [
       { type: 'required', message: 'Es ist ein Wert für den Zeitpunkt erforderlich.' }
     ],
@@ -139,6 +145,12 @@ export class DetailPage implements OnInit {
 
   goHome() {
     this.thePath = ['home'];
+    console.log('DetailPage: Aufruf - ' + this.thePath);
+    this.router.navigate(this.thePath);
+  }
+
+  goBack() {
+    this.thePath = ['./tabelle'];
     console.log('DetailPage: Aufruf - ' + this.thePath);
     this.router.navigate(this.thePath);
   }
@@ -227,6 +239,7 @@ export class DetailPage implements OnInit {
         if ( Wert > 100 ) Wert -= 1;
       }
       this.detailform.setValue({
+        ctlID: "ID: " + this.thisRecord[0].pid.toString(),
         ctlZeitpunkt: await this.detailform.get('ctlZeitpunkt').value,
         ctlSystole: Wert,
         ctlDiastole: await this.detailform.get('ctlDiastole').value,
@@ -251,6 +264,7 @@ export class DetailPage implements OnInit {
         if ( Wert > 60 ) Wert -= 1;
       }
       this.detailform.setValue({
+        ctlID: "ID: " + this.thisRecord[0].pid.toString(),
         ctlZeitpunkt: await this.detailform.get('ctlZeitpunkt').value,
         ctlSystole: await this.detailform.get('ctlSystole').value,
         ctlDiastole: Wert,
@@ -282,6 +296,7 @@ export class DetailPage implements OnInit {
         if ( Wert > 40 ) Wert -= 1;
       }
       this.detailform.setValue({
+        ctlID: "ID: " + this.thisRecord[0].pid.toString(),
         ctlZeitpunkt: await this.detailform.get('ctlZeitpunkt').value,
         ctlSystole: await this.detailform.get('ctlSystole').value,
         ctlDiastole: await this.detailform.get('ctlDiastole').value,
@@ -316,6 +331,7 @@ export class DetailPage implements OnInit {
       let Erg: string = Wert.toString();
       if ( Erg.indexOf(".") === -1 ) Erg = Wert.toString() + ".0";
       this.detailform.setValue({
+        ctlID: "ID: " + this.thisRecord[0].pid.toString(),
         ctlZeitpunkt: await this.detailform.get('ctlZeitpunkt').value,
         ctlSystole: await this.detailform.get('ctlSystole').value,
         ctlDiastole: await this.detailform.get('ctlDiastole').value,
@@ -349,6 +365,7 @@ export class DetailPage implements OnInit {
         Erg1 = "";        
       } 
       this.detailform.setValue({
+        ctlID: "ID: " + this.thisRecord[0].pid.toString(),
         ctlZeitpunkt: new Date(this.thisRecord[0].Zeitpunkt).toISOString(),
         ctlSystole: this.thisRecord[0].Systole.toString(),
         ctlDiastole: this.thisRecord[0].Diastole.toString(),
@@ -359,6 +376,7 @@ export class DetailPage implements OnInit {
     } catch(e) {
       console.log("setAllValues Error: " + e.message);
       this.detailform.setValue({
+        ctlID: "Fehler",
         ctlZeitpunkt: new Date().toISOString(),
         ctlDiastole: "80",
         ctlSystole: "120",
@@ -371,6 +389,10 @@ export class DetailPage implements OnInit {
 
   ngOnInit() {
     console.log("DetailPage: ngOnInit()");
+  }
+
+  async onCancel() {
+    this.goBack();
   }
 
   async onSubmit(values){
@@ -448,6 +470,6 @@ export class DetailPage implements OnInit {
 
   myBemerkungFormat(record: DataInterface) {
     let Erg: string = "row-Bemerkung_";
-    return Erg + this.myScreenFormat();
+    return Erg + "larger";
   }
 }
