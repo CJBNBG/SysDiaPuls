@@ -3,7 +3,6 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 import { Platform } from '@ionic/angular';
 import * as delay from 'delay';
-import { taggedTemplate } from '@angular/compiler/src/output/output_ast';
 
 export interface DataInterface {
   Jetzt: string;
@@ -16,6 +15,13 @@ export interface DataInterface {
   Gewicht: number;
   Bemerkung: string;
 }
+export interface SettingsInterface {
+  Bezeichnung: string;
+  Typ: string;
+  Wert_INT: number;
+  Wert_FLOAT: number;
+  Wert_TEXT: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +30,7 @@ export interface DataInterface {
 export class DbService {
 
   public dbInstance: SQLiteObject = null;
+  public AppSettings: SettingsInterface[] = [];
  
   constructor(private pltfrm: Platform, 
               private sqlite: SQLite,
@@ -42,7 +49,17 @@ export class DbService {
             + 'Gewicht FLOAT NULL,'
             + 'Bemerkung TEXT NULL'
             + ')', [])
-            .then(() => console.log('Datenbank geöffnet'))
+            .then(() => console.log('tDaten geöffnet'))
+            .catch(e => console.log(e));
+          db.executeSql('CREATE TABLE IF NOT EXISTS '
+            + 'tSettings(pid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
+            + 'Bezeichnung TEXT NOT NULL,'
+            + 'Typ TEXT NOT NULL,'
+            + 'Wert_INT INTEGER NULL,'
+            + 'Wert_FLOAT FLOAT NULL,'
+            + 'Wert_TEXT TEXT NULL'
+            + ')', [])
+            .then(() => console.log('tSettings geöffnet'))
             .catch(e => console.log(e));
         }
       ).catch().then((e) => {
@@ -66,6 +83,113 @@ export class DbService {
     }
   }
 
+  async CreateSettings(): Promise<boolean> {
+    await this.dbInstance.executeSql('INSERT INTO tSettings(Bezeichnung,Typ,Wert_INT)VALUES("AnzTabEintraege","INT",50)', [])
+    .then( val => {
+      console.log("CreateSettings: " + JSON.stringify(val));
+    })
+    .catch( e => {
+      console.log("CreateSettings: " + e);
+      return false;
+    });
+    return true;
+  }
+
+  async getSettingsCount(): Promise<string> {
+    let retVal: string = 'keine Daten';
+    let data = [];
+    let sqlcmd: string = 'SELECT COUNT(*) AS cnt FROM tSettings';
+    if ( this.dbInstance === null ) {
+      console.log("getSettingsCount: Datenbank ist geschlossen");
+    } else {
+      await this.dbInstance.executeSql(sqlcmd, data)
+      .then((res) => {
+          let erg: number = res.rows.item(0).cnt;
+          if ( erg === null ) {
+            retVal = '-1';
+          } else {
+            retVal = parseInt(res.rows.item(0).cnt, 10).toString();
+          }
+        })
+      .catch(e => {
+        console.log("getSettingsCount: Fehler - " + e);
+      });
+    }
+    return retVal;
+  }
+
+/*
+  async getSettings(): Promise <number> {
+    var retVal: number;
+    await this.dbInstance.executeSql("SELECT Bezeichnung,Typ,Wert_INT,Wert_FLOAT,Wert_TEXT FROM tSettings", [])
+    .then((res) => {
+      console.log('getSettings: Einlesen der Datensätze - ' + res.rows.length);
+      var anz: number = 0;
+      for(var x = 0; x < res.rows.length; x++) {
+        try {
+          var newObj: SettingsInterface = { Bezeichnung:"", Typ:"", Wert_FLOAT: 0.0, Wert_INT: 0, Wert_TEXT: "" };
+          console.log("getSettings: " + JSON.stringify(res.rows.item(x)));
+          if ( res.rows.item(x).Bezeichnung.toString() != null ) newObj.Bezeichnung = res.rows.item(x).Bezeichnung.toString();
+          console.log("getSettings-Bezeichnung: " + newObj.Bezeichnung.toString() );
+          if ( res.rows.item(x).Typ.toString() != null ) newObj.Typ = res.rows.item(x).Typ.toString();
+          console.log("getSettings-Typ: " + newObj.Typ.toString() );
+          switch (newObj.Typ) {
+            case "FLOAT":
+              if ( res.rows.item(x).Wert_FLOAT != null ) newObj.Wert_FLOAT = parseFloat(res.rows.item(x).Wert_FLOAT.toString());
+              console.log("getSettings-Wert_FLOAT: " + newObj.Wert_FLOAT.toFixed(2) );
+              break;
+            case "INT":
+              if ( res.rows.item(x).Wert_INT != null ) newObj.Wert_INT = parseInt(res.rows.item(x).Wert_INT.toString(), 10);
+              console.log("getSettings-Wert_INT: " + newObj.Wert_INT.toString() );
+              break;
+            case "TEXT":
+              if ( res.rows.item(x).Wert_TEXT != null ) newObj.Wert_TEXT = res.rows.item(x).Wert_TEXT.toString();
+              console.log("getSettings-Wert_TEXT: " + newObj.Wert_TEXT.toString() );
+              break;
+            default:
+              console.log('getSettings: unbekanntes Element');
+              break;
+          }
+          if ( newObj != null ) this.AppSettings.push(newObj);
+          console.log("getSettings: " + JSON.stringify(this.AppSettings[x]));
+          anz++;
+        } catch(e) {
+          console.log("getSettings Fehler: " + e);
+        }
+      }
+      retVal = anz;
+    })
+    .catch(e => {
+      console.log("getSettings Fehler: " + e);
+      retVal = -1;
+    });
+    console.log("getSettings: " + retVal.toString() + " Datensätze gelesen");
+    return retVal;
+  }
+*/
+ 
+  async getTabEntryCount(): Promise<number> {
+    let retVal: number = 0;
+    let sqlcmd: string = 'SELECT Wert_INT AS cnt FROM tSettings WHERE Bezeichnung LIKE "AnzTabEintraege" AND Typ="INT"';
+    if ( this.dbInstance === null ) {
+      console.log("getTabEntryCount: Datenbank ist geschlossen");
+    } else {
+      await this.dbInstance.executeSql(sqlcmd, [])
+      .then((res) => {
+          let erg: number = res.rows.item(0).cnt;
+          if ( erg === null ) {
+            retVal = -1;
+          } else {
+            retVal = parseInt(res.rows.item(0).cnt, 10);
+          }
+        })
+      .catch(e => {
+        console.log("getTabEntryCount: Fehler - " + e);
+      });
+    }
+    return retVal;
+  }
+
   async getAllRecords() {
     let theData: DataInterface[] = [];
     await this.dbInstance.executeSql("SELECT strftime('%H:%M %Y-%m-%d', datetime('now')) AS Jetzt, strftime('%d.%m.%Y\n%H:%M', Zeitpunkt) AS dt_formatiert,* FROM tDaten ORDER BY datetime(Zeitpunkt) DESC", []).then(
@@ -81,8 +205,14 @@ export class DbService {
  
   async get100Records() {
     let theData: DataInterface[] = [];
-    await this.dbInstance.executeSql("SELECT strftime('%H:%M %Y-%m-%d', datetime('now')) AS Jetzt, strftime('%d.%m.%Y\n%H:%M', Zeitpunkt) AS dt_formatiert,* FROM tDaten ORDER BY datetime(Zeitpunkt) DESC LIMIT 100", []).then(
-      (res) => {
+    let theLimit: string;
+    await this.getTabEntryCount()
+    .then(val => theLimit = val.toString())
+    .catch(e => console.log(e));
+    let SQLstmnt: string = "SELECT strftime('%H:%M %Y-%m-%d', datetime('now')) AS Jetzt, strftime('%d.%m.%Y\n%H:%M', Zeitpunkt) AS dt_formatiert,* FROM tDaten ORDER BY datetime(Zeitpunkt) DESC LIMIT " + theLimit;
+    console.log(SQLstmnt);
+    await this.dbInstance.executeSql(SQLstmnt, [])
+    .then((res) => {
         for(var x=0; x<res.rows.length; x++)
           theData.push(res.rows.item(x));
       }

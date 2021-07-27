@@ -241,10 +241,14 @@ export class TabellePage implements OnInit {
     this.lblStatus = document.getElementById('txtAnzDSe').getElementsByTagName('textarea')[0];
     if ( this.txtButtontext === 'alle anzeigen' ) {
       this.records = await this.dbService.getAllRecords();
-      this.txtButtontext = "letzte 100 anzeigen"
+      let Anz: number;
+      await this.dbService.getTabEntryCount()
+      .then(val => Anz = val)
+      .catch(e => console.log(e));
+      this.txtButtontext = "letzte " + Anz + " anzeigen";
      } else {
       this.records = await this.dbService.get100Records();
-      this.txtButtontext = "alle anzeigen"
+      this.txtButtontext = "alle anzeigen";
      }
      this.rec_count = this.records.length.toString();
      if ( this.rec_count === '0' ) {

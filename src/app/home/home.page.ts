@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DbService, DataInterface } from '../services/db.service';
+import { DbService, DataInterface, SettingsInterface } from '../services/db.service';
 import { AlertController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import * as delay from 'delay';
@@ -16,27 +16,34 @@ export class HomePage {
   lblStatus: any;
   thePath: any;
   records: DataInterface[] = [];
+//  settings: SettingsInterface[] = [];
+  settings_count: number = 0;
   rec_count: string = '0';
   rec_count_total: string = '0';
   avgSys: string = 'init';
   avgDia: string = 'init';
   avgPuls: string = 'init';
+  myWidth: number = 0;
+  myHeight: number = 0;
 
   constructor(
     private router: Router,
     private dbService: DbService,
     public alertController: AlertController,
-    private pltfrm: Platform
-  ) {
-
+    platform: Platform) {
+      platform.ready().then(() => {
+        this.myWidth = platform.width();
+        this.myHeight = platform.height();
+        console.log('HomePage - Breite: ' + this.myWidth + ' Höhe: ' + this.myHeight);
+    });
   }
 
   async doInit() {
-      while (this.dbService.dbInstance === null ) {
-        console.log("waiting for DB to open...");
-        await delay(100);                     // 100 ms
-      }
-      await this.doLeseWerte();
+    while (this.dbService.dbInstance === null ) {
+      console.log("waiting for DB to open...");
+      await delay(100);                     // 100 ms
+    }
+    await this.doLeseWerte();
   }
 
   async doLeseWerte() {
@@ -54,6 +61,7 @@ export class HomePage {
   ngOnInit() {
     console.log("HomePage: ngOnInit");
     this.records = [];
+//    this.settings = [];
     this.doInit();
   }
 
@@ -61,8 +69,14 @@ export class HomePage {
     console.log("HomePage: ionViewWillLeave");
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     console.log("HomePage: ionViewWillEnter");
+    await this.dbService.getSettingsCount().then(data => this.settings_count = parseInt(data, 10));
+    if ( this.settings_count < 1 ) {
+      await this.dbService.CreateSettings()
+      .then(data => console.log(JSON.stringify(data)))
+      .catch(e => console.log('ionViewWillEnter: ' + e));
+    }
   }
 
   ionViewDidLeave() {
@@ -77,10 +91,12 @@ export class HomePage {
     console.log("HomePage: ionViewDidLoad");
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     console.log("HomePage: ionViewDidEnter");
     this.doInit();
     this.dbService.getAllRecords().then(data => this.records = data);
+//    await this.dbService.getSettingsCount().then(data => console.log(this.settings_count = parseInt(data, 10)));
+//    await this.dbService.getSettings().then((daten) => console.log(daten) + ' Einträge gelesen').catch((e) => console.log(e));
   }
 
   zufall (min: number, max: number): number {
