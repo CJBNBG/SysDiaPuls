@@ -18,8 +18,39 @@
 </ion-header>
 
 <!-- Hauptbereich der Seite -->
-<ion-content [fullscreen]="true">
-  <div id="container">Anzahl Datens&auml;tze: <ion-textarea id="txtAnz" value="?"></ion-textarea></div>
+<ion-content padding class="form-content">
+  <form [formGroup]="settingsform" (ngSubmit)="onSubmit(settingsform.value)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card style="margin: 0pt; width: 100%;">
+            <ion-card-content mode="md">
+              <ion-list lines="full">
+                <ion-item style ="width: 100%;" lines="none">
+                  <ion-text style="width: 100%; text-align: left;">Anzahl anzuzeigender Datens&auml;tze in der Tabelle (1-99):</ion-text>
+                </ion-item>
+                <ion-item style ="width: 100%;" lines="inset">
+                  <ion-input style="width: 100%;text-align:center;background-color:#ddf0f8;font-size:larger;" mode="md" id="fcAnzEntries" formControlName="ctlAnzEntries" required></ion-input>
+                </ion-item>
+                <div id="container" *ngIf="settingsform.get('ctlAnzEntries').invalid">Bitte &uuml;berpr&uuml;fen Sie Ihre Eingabe!</div>
+
+                <ion-item style ="width: 100%;height:70px;" lines="none">
+                  <ion-button fill="outline" style="margin-right:10px;height:55px;" color="danger" expand="block" (click)="onCancel()">
+                    <ion-icon name="close"></ion-icon>
+                    Abbrechen
+                  </ion-button>
+                  <ion-button fill="outline" slot="end" style="margin:0px;height:55px;" color="secondary" class="submit-btn" expand="block" type="submit" [disabled]="!settingsform.valid">
+                    <ion-icon name="checkmark"></ion-icon>
+                    &Uuml;bernehmen
+                  </ion-button>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
 
 <!-- Fußzeilenbereich -->

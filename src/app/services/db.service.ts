@@ -16,6 +16,7 @@ export interface DataInterface {
   Bemerkung: string;
 }
 export interface SettingsInterface {
+  pid: number;
   Bezeichnung: string;
   Typ: string;
   Wert_INT: number;
@@ -118,43 +119,44 @@ export class DbService {
     return retVal;
   }
 
-/*
   async getSettings(): Promise <number> {
     var retVal: number;
-    await this.dbInstance.executeSql("SELECT Bezeichnung,Typ,Wert_INT,Wert_FLOAT,Wert_TEXT FROM tSettings", [])
+    await this.dbInstance.executeSql("SELECT pid,Bezeichnung,Typ,Wert_INT,Wert_FLOAT,Wert_TEXT FROM tSettings", [])
     .then((res) => {
       console.log('getSettings: Einlesen der Datensätze - ' + res.rows.length);
       var anz: number = 0;
       for(var x = 0; x < res.rows.length; x++) {
         try {
-          var newObj: SettingsInterface = { Bezeichnung:"", Typ:"", Wert_FLOAT: 0.0, Wert_INT: 0, Wert_TEXT: "" };
-          console.log("getSettings: " + JSON.stringify(res.rows.item(x)));
+          var newObj: SettingsInterface = { pid:-1, Bezeichnung:"", Typ:"", Wert_FLOAT: 0.0, Wert_INT: 0, Wert_TEXT: "" };
+          console.log( "getSettings: " + JSON.stringify(res.rows.item(x)) );
+          if ( res.rows.item(x).pid.toString() != null ) newObj.pid = parseInt(res.rows.item(x).pid, 10);
+          console.log( "getSettings-pid: " + newObj.pid.toFixed(0) );
           if ( res.rows.item(x).Bezeichnung.toString() != null ) newObj.Bezeichnung = res.rows.item(x).Bezeichnung.toString();
-          console.log("getSettings-Bezeichnung: " + newObj.Bezeichnung.toString() );
+          console.log( "getSettings-Bezeichnung: " + newObj.Bezeichnung.toString() );
           if ( res.rows.item(x).Typ.toString() != null ) newObj.Typ = res.rows.item(x).Typ.toString();
-          console.log("getSettings-Typ: " + newObj.Typ.toString() );
+          console.log( "getSettings-Typ: " + newObj.Typ.toString() );
           switch (newObj.Typ) {
             case "FLOAT":
               if ( res.rows.item(x).Wert_FLOAT != null ) newObj.Wert_FLOAT = parseFloat(res.rows.item(x).Wert_FLOAT.toString());
-              console.log("getSettings-Wert_FLOAT: " + newObj.Wert_FLOAT.toFixed(2) );
+              console.log( "getSettings-Wert_FLOAT: " + newObj.Wert_FLOAT.toFixed(2) );
               break;
             case "INT":
               if ( res.rows.item(x).Wert_INT != null ) newObj.Wert_INT = parseInt(res.rows.item(x).Wert_INT.toString(), 10);
-              console.log("getSettings-Wert_INT: " + newObj.Wert_INT.toString() );
+              console.log( "getSettings-Wert_INT: " + newObj.Wert_INT.toString() );
               break;
             case "TEXT":
               if ( res.rows.item(x).Wert_TEXT != null ) newObj.Wert_TEXT = res.rows.item(x).Wert_TEXT.toString();
-              console.log("getSettings-Wert_TEXT: " + newObj.Wert_TEXT.toString() );
+              console.log( "getSettings-Wert_TEXT: " + newObj.Wert_TEXT.toString() );
               break;
             default:
-              console.log('getSettings: unbekanntes Element');
+              console.log( 'getSettings: unbekanntes Element' );
               break;
           }
           if ( newObj != null ) this.AppSettings.push(newObj);
-          console.log("getSettings: " + JSON.stringify(this.AppSettings[x]));
+          console.log( "getSettings: " + JSON.stringify(this.AppSettings[x]) );
           anz++;
         } catch(e) {
-          console.log("getSettings Fehler: " + e);
+          console.log( "getSettings Fehler: " + e );
         }
       }
       retVal = anz;
@@ -166,7 +168,6 @@ export class DbService {
     console.log("getSettings: " + retVal.toString() + " Datensätze gelesen");
     return retVal;
   }
-*/
  
   async getTabEntryCount(): Promise<number> {
     let retVal: number = 0;
@@ -188,6 +189,14 @@ export class DbService {
       });
     }
     return retVal;
+  }
+
+  async setTabEntryCount(newVal: number) {
+    await this.dbInstance.executeSql('UPDATE tSettings SET Wert_INT=? WHERE Bezeichnung LIKE "AnzTabEintraege"', [newVal])
+    .then( val => {
+      console.log("setTabEntryCount: " + JSON.stringify(val));
+    })
+    .catch(e => console.log(e));
   }
 
   async getAllRecords() {
